@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  GalleryViewController.swift
 //  ios-nanodegree-virtual-tourist
 //
 //  Created by Andrew Despres on 1/7/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GalleryViewController: UIViewController {
 
     // MARK: - View Controller
     override func viewDidLoad() {
