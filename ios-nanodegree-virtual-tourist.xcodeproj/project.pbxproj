@@ -13,6 +13,8 @@
 		A1F2B97621E45A6900F5CB68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1F2B97521E45A6900F5CB68 /* Assets.xcassets */; };
 		A1F2B97921E45A6900F5CB68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1F2B97721E45A6900F5CB68 /* LaunchScreen.storyboard */; };
 		A1F2B98321E45C7300F5CB68 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B98221E45C7300F5CB68 /* MapViewController.swift */; };
+		A1F2B98921E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B98821E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift */; };
+		A1F2B98B21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B98A21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		A1F2B97821E45A6900F5CB68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1F2B97A21E45A6900F5CB68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1F2B98221E45C7300F5CB68 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		A1F2B98821E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+MKMapViewDelegate.swift"; sourceTree = "<group>"; };
+		A1F2B98A21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+PinAnnotations.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				A1F2B98221E45C7300F5CB68 /* MapViewController.swift */,
+				A1F2B98821E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift */,
+				A1F2B98A21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift */,
 			);
 			path = MapViewController;
 			sourceTree = "<group>";
@@ -170,6 +176,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1F2B98921E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift in Sources */,
+				A1F2B98B21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift in Sources */,
 				A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */,
 				A1F2B98321E45C7300F5CB68 /* MapViewController.swift in Sources */,
 				A1F2B96F21E45A6700F5CB68 /* AppDelegate.swift in Sources */,
