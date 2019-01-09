@@ -67,6 +67,25 @@ extension MapViewController {
     }
     
     /**
+     Removes a `MKPointAnnotation` from the specified `MKMapView`.
+     
+     This method is used to remove a `MKPointAnnotation` from a `MKMapView`. After a the annotation
+     has been removed, the method checks the number of annotations remaining on `MKMapView`.
+     If all annotations have been removed the Editing state is set to `false` and the UI is updated.
+     
+     - parameter pin: The `MKPointAnnotation` to be removed.
+     - parameter map: The `MKMapView` containing the `MKPointAnnotation`.
+     */
+    func remove(pin: MKPointAnnotation, from map: MKMapView) {
+        map.removeAnnotation(pin)
+        
+        if map.annotations.count == 0 {
+            toggleEditingState()
+            editButton.isEnabled = false
+        }
+    }
+    
+    /**
      Determine the placename by geocoding location coordinates.
      
      This method takes a `CLLocation` and returns and a closure with an option `String` or `Error`.

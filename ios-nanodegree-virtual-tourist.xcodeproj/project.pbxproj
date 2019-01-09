@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1486D5E21E5B5DE0046BE8E /* MapViewController+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1486D5D21E5B5DE0046BE8E /* MapViewController+Editing.swift */; };
 		A1F2B96F21E45A6700F5CB68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B96E21E45A6700F5CB68 /* AppDelegate.swift */; };
 		A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B97021E45A6700F5CB68 /* GalleryViewController.swift */; };
 		A1F2B97421E45A6700F5CB68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1F2B97221E45A6700F5CB68 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1486D5D21E5B5DE0046BE8E /* MapViewController+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+Editing.swift"; sourceTree = "<group>"; };
 		A1F2B96B21E45A6700F5CB68 /* ios-nanodegree-virtual-tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-nanodegree-virtual-tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1F2B96E21E45A6700F5CB68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1F2B97021E45A6700F5CB68 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				A1F2B98221E45C7300F5CB68 /* MapViewController.swift */,
+				A1486D5D21E5B5DE0046BE8E /* MapViewController+Editing.swift */,
 				A1F2B98821E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift */,
 				A1F2B98A21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift */,
 			);
@@ -181,6 +184,7 @@
 				A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */,
 				A1F2B98321E45C7300F5CB68 /* MapViewController.swift in Sources */,
 				A1F2B96F21E45A6700F5CB68 /* AppDelegate.swift in Sources */,
+				A1486D5E21E5B5DE0046BE8E /* MapViewController+Editing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
