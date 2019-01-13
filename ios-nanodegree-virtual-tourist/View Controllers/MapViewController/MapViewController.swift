@@ -52,4 +52,13 @@ class MapViewController: UIViewController {
         // Move instructions view off screen
         toggleInstructionsView(animated: false)
     }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showGallery" {
+            guard let galleryVC = segue.destination as? GalleryViewController else { return }
+            guard let annotation = sender as? MKPointAnnotation else { return }
+            galleryVC.annotation = annotation
+        }
+    }
 }

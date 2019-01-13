@@ -17,8 +17,11 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         switch isEditingMap {
-        case false: performSegue(withIdentifier: "showGallery", sender: nil)
-        case true: remove(pin: view.annotation as! MKPointAnnotation, from: mapView)
+        case false:
+            view.isSelected = false
+            performSegue(withIdentifier: "showGallery", sender: view.annotation as! MKPointAnnotation)
+        case true:
+            remove(pin: view.annotation as! MKPointAnnotation, from: mapView)
         }
     }
 }
