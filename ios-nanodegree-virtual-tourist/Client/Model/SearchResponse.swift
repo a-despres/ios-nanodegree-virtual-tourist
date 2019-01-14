@@ -9,5 +9,5 @@
 import Foundation
 
 struct SearchResponse: Codable {
-    let photos: Photos
+    let photos: FlickrPhotos
 }

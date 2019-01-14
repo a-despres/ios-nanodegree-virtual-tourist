@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class MapViewController: UIViewController {
     // MARK: - IBOutlets
@@ -20,6 +21,7 @@ class MapViewController: UIViewController {
     // MARK: - Properties
     var activePin: MKPointAnnotation!
     var isEditingMap: Bool = false
+    var pins: [Pin] = [Pin]()
     
     // MARK: - IBActions
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
@@ -51,6 +53,16 @@ class MapViewController: UIViewController {
         
         // Move instructions view off screen
         toggleInstructionsView(animated: false)
+        
+        // Load data using core data controller
+        DataController.shared.load()
+        
+        let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+        
+        if let result = try? DataController.shared.viewContext.fetch(fetchRequest) {
+            pins = result
+            place(pins: pins, on: mapView)
+        }
     }
     
     // MARK: - Navigation

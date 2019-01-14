@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 // MARK: - Pin Annotations
 extension MapViewController {
@@ -67,6 +68,25 @@ extension MapViewController {
                 Client.downloadPhotosForLocation(pin.coordinate)
             }
         }
+        
+        // add pin to persistent store, otherwise remove pin from map
+        DataController.addPin(with: location.coordinate) { [unowned self] success in
+            // Remove pin from map if saving failed
+            if !success {
+                self.remove(pin: pin, from: map)
+                // TODO: Add error handler
+            }
+        }
+    }
+    
+    func place(pins: [Pin], on map: MKMapView) {
+        for pin in pins {
+            let annotation = MKPointAnnotation()
+            let latitude = Double(pin.latitude!)!
+            let longitude = Double(pin.longitude!)!
+            annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            map.addAnnotation(annotation)
+        }
     }
     
     /**
@@ -80,8 +100,16 @@ extension MapViewController {
      - parameter map: The `MKMapView` containing the `MKPointAnnotation`.
      */
     func remove(pin: MKPointAnnotation, from map: MKMapView) {
-        map.removeAnnotation(pin)
-        
+        // remove from map and persistent store
+        if let pinToDelete = DataController.fetchPin(with: pin.coordinate) {
+            DataController.delete(pin: pinToDelete) { success in
+                switch success {
+                case false: print("Error") // TODO: Add error handler
+                case true: map.removeAnnotation(pin)
+                }
+            }
+        }
+
         if map.annotations.count == 0 {
             toggleEditingState()
             editButton.isEnabled = false

@@ -1,5 +1,5 @@
 //
-//  Photo.swift
+//  FlickrPhotos.swift
 //  ios-nanodegree-virtual-tourist
 //
 //  Created by Andrew Despres on 1/13/19.
@@ -8,12 +8,10 @@
 
 import Foundation
 
-struct Photo: Codable {
-    let title: String
-    let url: String
+struct FlickrPhotos: Codable {
+    let photos: [FlickrPhoto]
     
     enum CodingKeys: String, CodingKey {
-        case title
-        case url = "url_n"
+        case photos = "photo"
     }
 }
