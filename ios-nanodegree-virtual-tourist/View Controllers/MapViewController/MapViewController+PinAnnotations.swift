@@ -62,6 +62,9 @@ extension MapViewController {
                 print("Error:", error)
             } else if let placename = placename {
                 pin.title = placename
+                
+                // Download image data
+                Client.downloadPhotosForLocation(pin.coordinate)
             }
         }
     }
