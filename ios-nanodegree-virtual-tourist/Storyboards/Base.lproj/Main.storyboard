@@ -81,7 +81,7 @@
             </objects>
             <point key="canvasLocation" x="1086" y="134"/>
         </scene>
-        <!--Title-->
+        <!--Gallery View Controller-->
         <scene sceneID="MHh-7E-A2q">
             <objects>
                 <viewController id="3nE-LB-n1q" customClass="GalleryViewController" customModule="ios_nanodegree_virtual_tourist" customModuleProvider="target" sceneMemberID="viewController">
@@ -150,15 +150,25 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5l-5Z-g4U">
                                                 <rect key="frame" x="0.0" y="0.0" width="171.5" height="48"/>
-                                                <state key="normal" title="Button"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Update Favorites"/>
+                                                <connections>
+                                                    <action selector="updateButtonTapped:" destination="3nE-LB-n1q" eventType="touchUpInside" id="bth-9u-vUa"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WtP-MZ-gOd">
                                                 <rect key="frame" x="171.5" y="0.0" width="171.5" height="48"/>
-                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="O3u-Fw-Ke7"/>
                                                 </constraints>
-                                                <state key="normal" title="New Collection"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="New Gallery"/>
+                                                <connections>
+                                                    <action selector="newGalleryTapped:" destination="3nE-LB-n1q" eventType="touchUpInside" id="Rti-xl-OAY"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -188,11 +198,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dwc-PR-Bk7"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="gBq-wp-DX9">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="thN-9f-T2Y"/>
+                    <navigationItem key="navigationItem" id="gBq-wp-DX9">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="thN-9f-T2Y">
+                            <connections>
+                                <action selector="editButtonTapped:" destination="3nE-LB-n1q" id="6bm-lg-sh2"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionView" destination="532-Wg-IFr" id="vEy-XX-rRV"/>
+                        <outlet property="editButton" destination="thN-9f-T2Y" id="MaA-BY-bg3"/>
+                        <outlet property="editPane" destination="2hj-id-xiY" id="kRc-He-sTW"/>
+                        <outlet property="editPaneVerticalConstraint" destination="ID9-pz-3zS" id="A3D-xw-vlx"/>
                         <outlet property="mapView" destination="aMo-CL-ymw" id="ULK-vt-07j"/>
+                        <outlet property="updateButton" destination="U5l-5Z-g4U" id="Dc4-rr-Rhg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FoI-tG-vTV" userLabel="First Responder" sceneMemberID="firstResponder"/>

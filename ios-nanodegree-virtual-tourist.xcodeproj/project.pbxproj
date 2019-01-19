@@ -28,6 +28,7 @@
 		A1F2B98321E45C7300F5CB68 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B98221E45C7300F5CB68 /* MapViewController.swift */; };
 		A1F2B98921E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B98821E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift */; };
 		A1F2B98B21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B98A21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift */; };
+		AA69B73C21F3A10800A745EF /* GalleryViewController+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69B73B21F3A10800A745EF /* GalleryViewController+Editing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		A1F2B98221E45C7300F5CB68 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		A1F2B98821E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+MKMapViewDelegate.swift"; sourceTree = "<group>"; };
 		A1F2B98A21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+PinAnnotations.swift"; sourceTree = "<group>"; };
+		AA69B73B21F3A10800A745EF /* GalleryViewController+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewController+Editing.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				A1F2B97021E45A6700F5CB68 /* GalleryViewController.swift */,
+				AA69B73B21F3A10800A745EF /* GalleryViewController+Editing.swift */,
 				A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */,
 				A1C279E221F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift */,
 				A1C279E421F29E4A0014C546 /* GalleryCollectionViewCell.swift */,
@@ -241,6 +244,7 @@
 			files = (
 				A152544F21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld in Sources */,
 				A1F2B98921E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift in Sources */,
+				AA69B73C21F3A10800A745EF /* GalleryViewController+Editing.swift in Sources */,
 				A1F2B98B21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift in Sources */,
 				A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */,
 				A1C279E521F29E4A0014C546 /* GalleryCollectionViewCell.swift in Sources */,

@@ -27,6 +27,11 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout, UICollectio
             cell.favoriteIcon.image = UIImage(named: "outline_favorite_black_24pt")
         }
         
+        switch isEditingGallery {
+        case false: cell.favoriteIcon.isHidden = true
+        case true: cell.favoriteIcon.isHidden = false
+        }
+        
         return cell
     }
     
@@ -44,10 +49,24 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! GalleryCollectionViewCell
-        cell.favoriteIcon.image = UIImage(named: "outline_favorite_border_black_24pt")
-        
-        indexPathsToDelete.append(indexPath)
-        print(indexPathsToDelete)
+        if isEditingGallery {
+            let cell = collectionView.cellForItem(at: indexPath) as! GalleryCollectionViewCell
+            let photo = fetchedResultsController.object(at: indexPath)
+            
+            switch cell.favoriteIcon.image {
+            case favoriteFilled: cell.favoriteIcon.image = favoriteOutline
+            case favoriteOutline: cell.favoriteIcon.image = favoriteFilled
+            default: break
+            }
+            
+            switch photosToDelete.contains(photo) {
+            case false: photosToDelete.append(photo)
+            case true:
+                let index = photosToDelete.firstIndex(of: photo)!
+                photosToDelete.remove(at: index)
+            }
+            
+            toggleUpdateButton()
+        }
     }
 }

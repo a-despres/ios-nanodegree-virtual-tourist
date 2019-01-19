@@ -13,16 +13,53 @@ import CoreData
 class GalleryViewController: UIViewController {
     
     // MARK: - IBOutlets
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var editPane: UIView!
+    @IBOutlet weak var editPaneVerticalConstraint: NSLayoutConstraint!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var updateButton: UIButton!
     
     // MARK: - Properties
+    var favoriteFilled = UIImage(named: "outline_favorite_black_24pt")
+    var favoriteOutline = UIImage(named: "outline_favorite_border_black_24pt")
+    
     var fetchedResultsController: NSFetchedResultsController<Photo>!
     var indexPathsToDelete = [IndexPath]()
+    var indexPathsToInsert = [IndexPath]()
+    var indexPathsToUpdate = [IndexPath]()
+    
+    var isEditingGallery = false
+    var photosToDelete = [Photo]()
     var pin: Pin!
-
+    
+    // MARK: - IBActions
+    @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
+        toggleEditingState()
+    }
+    
+    @IBAction func updateButtonTapped(_ sender: UIButton) {
+        for photo in photosToDelete {
+            DataController.delete(photo: photo) { [unowned self] success in
+                switch success {
+                case false: print("error") // TODO: add proper error handling
+                case true:
+                    self.photosToDelete = [Photo]()
+                    self.toggleUpdateButton()
+                }
+            }
+        }
+    }
+    
+    @IBAction func newGalleryTapped(_ sender: UIButton) {
+    }
+    
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Move edit pane off screen
+        toggleEditPane(animated: false)
         
         let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "pin == %@", pin)
@@ -36,11 +73,6 @@ class GalleryViewController: UIViewController {
         } catch {
             print(error)
         }
-        
-//        if let result = try? fetchedResultsController.performFetch() {
-//            photos = result
-//            print("Number of photos:", photos.count)
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
