@@ -45,8 +45,20 @@ class Client {
                     for photo in response.photos.photos {
                         let url = URL(string: photo.url)!
                         downloadPhoto(from: url) { (data, error) in
-                            // print data to console -- this is only temporary until the data is properly handled
-                            print(data)
+                            
+                            guard let pin = DataController.fetchPin(with: location) else { return }
+                            
+                            let newPhoto = Photo(context: DataController.shared.viewContext)
+                            newPhoto.data = data
+                            newPhoto.title = photo.title
+                            newPhoto.url = photo.url
+                            
+                            DataController.add(photo: newPhoto, toPin: pin) { success in
+                                switch success {
+                                case false: print("hmm... something's not quite right. photo not saved.")
+                                case true: print("success! photo saved.")
+                                }
+                            }
                         }
                     }
                 } catch {

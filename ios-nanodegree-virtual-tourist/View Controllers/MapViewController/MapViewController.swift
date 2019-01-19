@@ -69,8 +69,9 @@ class MapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showGallery" {
             guard let galleryVC = segue.destination as? GalleryViewController else { return }
-            guard let annotation = sender as? MKPointAnnotation else { return }
-            galleryVC.annotation = annotation
+            guard let pin = sender as? Pin else { return }
+            
+            galleryVC.pin = pin
         }
     }
 }

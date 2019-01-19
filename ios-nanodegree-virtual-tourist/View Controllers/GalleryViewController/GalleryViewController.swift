@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class GalleryViewController: UIViewController {
     
@@ -15,15 +16,43 @@ class GalleryViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     // MARK: - Properties
-    var annotation: MKPointAnnotation!
+    var fetchedResultsController: NSFetchedResultsController<Photo>!
+    var indexPathsToDelete = [IndexPath]()
+    var pin: Pin!
 
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "pin == %@", pin)
+        fetchRequest.sortDescriptors = []
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print(error)
+        }
+        
+//        if let result = try? fetchedResultsController.performFetch() {
+//            photos = result
+//            print("Number of photos:", photos.count)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+                
+        // get pins latitude and longitude
+        guard let latitude = Double(pin.latitude!) else { return }
+        guard let longitude = Double(pin.longitude!) else { return }
+        
+        // create point annotation
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         
         // center map on pin
         mapView.addAnnotation(annotation)

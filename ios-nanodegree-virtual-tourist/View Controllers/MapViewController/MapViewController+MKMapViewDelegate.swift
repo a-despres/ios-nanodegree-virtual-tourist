@@ -19,7 +19,9 @@ extension MapViewController: MKMapViewDelegate {
         switch isEditingMap {
         case false:
             view.isSelected = false
-            performSegue(withIdentifier: "showGallery", sender: view.annotation as! MKPointAnnotation)
+            if let pin = DataController.fetchPin(with: view.annotation!.coordinate) {
+                performSegue(withIdentifier: "showGallery", sender: pin)
+            }
         case true:
             remove(pin: view.annotation as! MKPointAnnotation, from: mapView)
         }

@@ -17,6 +17,9 @@
 		A152544721EC035300BACC40 /* Client+QueryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152544621EC035300BACC40 /* Client+QueryItems.swift */; };
 		A152544F21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A152544D21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld */; };
 		A152545221EC0E1000BACC40 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152545121EC0E1000BACC40 /* DataController.swift */; };
+		A1C279E321F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E221F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift */; };
+		A1C279E521F29E4A0014C546 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E421F29E4A0014C546 /* GalleryCollectionViewCell.swift */; };
+		A1C279E721F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */; };
 		A1F2B96F21E45A6700F5CB68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B96E21E45A6700F5CB68 /* AppDelegate.swift */; };
 		A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B97021E45A6700F5CB68 /* GalleryViewController.swift */; };
 		A1F2B97421E45A6700F5CB68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1F2B97221E45A6700F5CB68 /* Main.storyboard */; };
@@ -38,6 +41,9 @@
 		A152544621EC035300BACC40 /* Client+QueryItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+QueryItems.swift"; sourceTree = "<group>"; };
 		A152544E21EC0C8300BACC40 /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 		A152545121EC0E1000BACC40 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		A1C279E221F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
+		A1C279E421F29E4A0014C546 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewController+NSFetchedResultsControllerDelegate.swift"; sourceTree = "<group>"; };
 		A1F2B96B21E45A6700F5CB68 /* ios-nanodegree-virtual-tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-nanodegree-virtual-tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1F2B96E21E45A6700F5CB68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1F2B97021E45A6700F5CB68 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +150,9 @@
 			isa = PBXGroup;
 			children = (
 				A1F2B97021E45A6700F5CB68 /* GalleryViewController.swift */,
+				A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */,
+				A1C279E221F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift */,
+				A1C279E421F29E4A0014C546 /* GalleryCollectionViewCell.swift */,
 			);
 			path = GalleryViewController;
 			sourceTree = "<group>";
@@ -234,16 +243,19 @@
 				A1F2B98921E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift in Sources */,
 				A1F2B98B21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift in Sources */,
 				A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */,
+				A1C279E521F29E4A0014C546 /* GalleryCollectionViewCell.swift in Sources */,
 				A1F2B98321E45C7300F5CB68 /* MapViewController.swift in Sources */,
 				A152543E21EBBFD800BACC40 /* Client+Flickr.swift in Sources */,
 				A152544321EBFACA00BACC40 /* FlickrPhotos.swift in Sources */,
 				A149073521EBB28800AB297C /* Client.swift in Sources */,
 				A1F2B96F21E45A6700F5CB68 /* AppDelegate.swift in Sources */,
+				A1C279E321F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift in Sources */,
 				A152544521EBFE2B00BACC40 /* SearchResponse.swift in Sources */,
 				A152545221EC0E1000BACC40 /* DataController.swift in Sources */,
 				A1486D5E21E5B5DE0046BE8E /* MapViewController+Editing.swift in Sources */,
 				A152544021EBFA4600BACC40 /* FlickrPhoto.swift in Sources */,
 				A149073921EBB3CD00AB297C /* Client+Auth.swift in Sources */,
+				A1C279E721F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift in Sources */,
 				A152544721EC035300BACC40 /* Client+QueryItems.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

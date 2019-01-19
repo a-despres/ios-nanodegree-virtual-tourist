@@ -35,7 +35,7 @@ extension Client {
             static let extras = "url_n"
             static let format = "json"
             static let page = "1"
-            static let perPage = "5"
+            static let perPage = "36"
         }
         
         enum Method {
