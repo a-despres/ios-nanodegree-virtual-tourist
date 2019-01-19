@@ -120,18 +120,24 @@
                                                         <constraint firstAttribute="width" constant="24" id="ugy-nz-tI1"/>
                                                     </constraints>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HGR-5y-A0r">
+                                                    <rect key="frame" x="56.5" y="56.5" width="37" height="37"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="8iL-R6-DtR" firstAttribute="height" secondItem="9FS-UG-CBo" secondAttribute="height" id="AAQ-0s-OqJ"/>
+                                            <constraint firstItem="HGR-5y-A0r" firstAttribute="centerX" secondItem="9FS-UG-CBo" secondAttribute="centerX" id="Ecn-in-HKE"/>
                                             <constraint firstItem="Dvv-Pb-P1l" firstAttribute="top" secondItem="8iL-R6-DtR" secondAttribute="top" constant="8" id="Oe0-LX-bA5"/>
                                             <constraint firstItem="Dvv-Pb-P1l" firstAttribute="trailing" secondItem="8iL-R6-DtR" secondAttribute="trailing" constant="-8" id="RZV-q5-cnx"/>
                                             <constraint firstItem="8iL-R6-DtR" firstAttribute="centerX" secondItem="9FS-UG-CBo" secondAttribute="centerX" id="XPI-3a-hsl"/>
                                             <constraint firstItem="8iL-R6-DtR" firstAttribute="centerY" secondItem="9FS-UG-CBo" secondAttribute="centerY" id="gQS-CA-4lW"/>
+                                            <constraint firstItem="HGR-5y-A0r" firstAttribute="centerY" secondItem="9FS-UG-CBo" secondAttribute="centerY" id="qsQ-Kr-h08"/>
                                             <constraint firstItem="8iL-R6-DtR" firstAttribute="width" secondItem="9FS-UG-CBo" secondAttribute="width" id="vjU-ht-m0S"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="activityIndicator" destination="HGR-5y-A0r" id="ZoY-o1-10o"/>
                                             <outlet property="favoriteIcon" destination="Dvv-Pb-P1l" id="kHb-WL-NGV"/>
                                             <outlet property="photo" destination="8iL-R6-DtR" id="fGY-Jg-DFe"/>
                                         </connections>

@@ -15,24 +15,36 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! GalleryCollectionViewCell
-        cell.photo.image = UIImage(data: fetchedResultsController.object(at: indexPath).data!)
-        cell.photo.contentMode = .scaleAspectFill
+
+        switch isEditingGallery {
+        case false: cell.favoriteIcon.isHidden = true
+        case true: cell.favoriteIcon.isHidden = false
+        }
+        cell.activityIndicator.startAnimating()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cell = cell as! GalleryCollectionViewCell
+        let imageData = fetchedResultsController.object(at: indexPath).data!
         
+        // hide activity indicator
+        cell.activityIndicator.stopAnimating()
+        
+        // display image
+        cell.photo.image = UIImage(data: imageData)
+        cell.photo.contentMode = .scaleAspectFill
+
+        // customize how the favorite icon is displayed
         cell.favoriteIcon.image = cell.favoriteIcon.image?.withRenderingMode(.alwaysTemplate)
         cell.favoriteIcon.tintColor = UIColor(red: 1, green: 71/255, blue: 87/255, alpha: 1)
-        
+
+        // display the appropriate favorite icon
         if indexPathsToDelete.contains(indexPath) {
             cell.favoriteIcon.image = UIImage(named: "outline_favorite_border_black_24pt")
         } else {
             cell.favoriteIcon.image = UIImage(named: "outline_favorite_black_24pt")
         }
-        
-        switch isEditingGallery {
-        case false: cell.favoriteIcon.isHidden = true
-        case true: cell.favoriteIcon.isHidden = false
-        }
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

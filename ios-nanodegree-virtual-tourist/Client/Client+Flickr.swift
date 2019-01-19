@@ -34,7 +34,7 @@ extension Client {
             static let callback = "1"
             static let extras = "url_n"
             static let format = "json"
-            static let page = "1"
+            static var page: String { return "\(Int(arc4random_uniform(100)) + 1)" }
             static let perPage = "36"
         }
         

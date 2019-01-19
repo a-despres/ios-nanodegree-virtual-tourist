@@ -52,6 +52,16 @@ class GalleryViewController: UIViewController {
     }
     
     @IBAction func newGalleryTapped(_ sender: UIButton) {
+        guard let photos = fetchedResultsController.fetchedObjects else { return }
+        guard let latitude = Double(pin.latitude!) else { return }
+        guard let longitude = Double(pin.longitude!) else { return }
+        
+        // remove all existing photos
+        DataController.delete(photos: photos) { success in
+            // download new photo set
+            let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            Client.downloadPhotosForLocation(location)
+        }
     }
     
     // MARK: - View Controller

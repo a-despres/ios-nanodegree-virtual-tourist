@@ -70,6 +70,16 @@ class DataController {
         }
     }
     
+    class func delete(photos: [Photo], completion: @escaping (_ success: Bool) -> Void) {
+        for photo in photos {
+            delete(photo: photo) { success in
+                if !success { completion(false) }
+            }
+        }
+        
+        completion(true)
+    }
+    
     
     // MARK: - Pin Helper Functions
     
