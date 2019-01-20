@@ -13,7 +13,7 @@ import CoreData
 class Client {
     private static let decoder = JSONDecoder()
     
-    class func downloadMetaDataForLocation(_ location: CLLocationCoordinate2D, completion: @escaping (Data?, Error?) -> Void) {
+    class func downloadMetaDataForLocation(_ location: CLLocationCoordinate2D, completion: @escaping (Pin?, Error?) -> Void) {
         // get pin for location
         guard let pin = DataController.fetchPin(with: location) else { return }
         
@@ -53,15 +53,15 @@ class Client {
                             }
                         }
                     }
-                    
+                    DispatchQueue.main.async { completion(pin, nil) }
                 } catch {
-                    print(error)
+                    DispatchQueue.main.async { completion(nil, error) }
                 }
             }
         }
     }
     
-    private class func downloadPhoto(from url: URL, completion: @escaping (Data?, Error?) -> Void) {
+    class func downloadPhoto(from url: URL, completion: @escaping (Data?, Error?) -> Void) {
         taskForGETRequest(url: url) { (data, error) in
             if let error = error { completion(nil, error) }
             if let data = data { completion(data, nil) }

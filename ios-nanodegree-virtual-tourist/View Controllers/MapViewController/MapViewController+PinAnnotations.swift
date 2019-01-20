@@ -65,7 +65,44 @@ extension MapViewController {
                 pin.title = placename
                 
                 // Download image data
-                Client.downloadPhotosForLocation(pin.coordinate)
+//                Client.downloadPhotosForLocation(pin.coordinate)
+                
+                self.downloadStatusLocationName.text = pin.title!
+                self.toggleDownloadStatus(animated: true)
+                
+                Client.downloadMetaDataForLocation(pin.coordinate, completion: { (pin, error) in
+                    guard let pin = pin else { return }
+                    
+                    let count = pin.photos!.count
+                    var downloadCount = 0
+                    
+                    self.downloadStatusPhotoCount.text = "\(downloadCount) or \(count) Photos"
+                    
+                    for case let photo as Photo in pin.photos! {
+                        if let url = URL(string: photo.url!) {
+                            Client.downloadPhoto(from: url, completion: { (data, error) in
+                                if let data = data {
+                                    print(data)
+                                    downloadCount += 1
+                                    DispatchQueue.main.async { self.downloadStatusPhotoCount.text = "\(downloadCount) or \(count) Photos" }
+                                    
+                                    if downloadCount == count {
+                                        DispatchQueue.main.async {
+                                            self.hidePhotoCount()
+                                            self.downloadStatusActivityIndicator.stopAnimating()
+                                            self.downloadStatusGalleryButton.isEnabled = true
+                                            self.newPin = pin
+                                        }
+                                    }
+                                }
+                            })
+                        } else {
+                            print("Invalid URL")
+                            downloadCount += 1
+                            DispatchQueue.main.async { self.downloadStatusPhotoCount.text = "\(downloadCount) or \(count) Photos" }
+                        }
+                    }
+                })
             }
         }
         
