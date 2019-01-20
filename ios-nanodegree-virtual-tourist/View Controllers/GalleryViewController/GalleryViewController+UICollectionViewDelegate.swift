@@ -20,6 +20,8 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout, UICollectio
         case false: cell.favoriteIcon.isHidden = true
         case true: cell.favoriteIcon.isHidden = false
         }
+        
+        cell.photo.image = UIImage()
         cell.activityIndicator.startAnimating()
         return cell
     }
@@ -29,12 +31,14 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout, UICollectio
         let imageData = fetchedResultsController.object(at: indexPath).data!
         
         // hide activity indicator
-        cell.activityIndicator.stopAnimating()
+        if imageData.count > 0 {
+            cell.activityIndicator.stopAnimating()
+            cell.photo.image = UIImage(data: imageData)
+            cell.photo.contentMode = .scaleAspectFill
+        } else {
+            Client.downloadPhotoForIndexPath(indexPath, using: fetchedResultsController) { (data, error) in }
+        }
         
-        // display image
-        cell.photo.image = UIImage(data: imageData)
-        cell.photo.contentMode = .scaleAspectFill
-
         // customize how the favorite icon is displayed
         cell.favoriteIcon.image = cell.favoriteIcon.image?.withRenderingMode(.alwaysTemplate)
         cell.favoriteIcon.tintColor = UIColor(red: 1, green: 71/255, blue: 87/255, alpha: 1)

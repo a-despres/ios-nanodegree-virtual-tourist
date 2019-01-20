@@ -49,9 +49,7 @@ class DataController {
     
     class func add(photo: Photo, toPin pin: Pin, completion: @escaping (_ success: Bool) -> Void) {
         photo.pin = pin
-        
-        print(photo)
-        
+                
         save { success in
             switch success {
             case false: completion(false)

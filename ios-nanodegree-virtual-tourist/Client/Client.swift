@@ -8,14 +8,77 @@
 
 import Foundation
 import MapKit
+import CoreData
 
 class Client {
     private static let decoder = JSONDecoder()
+    
+    class func downloadMetaDataForLocation(_ location: CLLocationCoordinate2D, completion: @escaping (Data?, Error?) -> Void) {
+        // get pin for location
+        guard let pin = DataController.fetchPin(with: location) else { return }
+        
+        // create URL from URL Components
+        var components = URLComponents()
+        components.scheme = Flickr.scheme
+        components.host = Flickr.host
+        components.path = Flickr.path
+        components.queryItems = [URLQueryItem]()
+        
+        for (key, value) in queryItems(for: .search) {
+            let queryItem = URLQueryItem(name: key, value: value)
+            components.queryItems?.append(queryItem)
+        }
+        
+        for (key, value) in queryItems(for: location) {
+            let queryItem = URLQueryItem(name: key, value: value)
+            components.queryItems?.append(queryItem)
+        }
+        
+        // download meta data for location
+        taskForGETRequest(url: components.url!) { (data, error) in
+            if let data = data {
+                do {
+                    let response = try decoder.decode(SearchResponse.self, from: data)
+                    
+                    for photo in response.photos.photos {
+                        let newPhoto = Photo(context: DataController.shared.viewContext)
+                        newPhoto.data = Data()
+                        newPhoto.title = photo.title
+                        newPhoto.url = photo.url
+                            
+                        DataController.add(photo: newPhoto, toPin: pin) { success in
+                            switch success {
+                            case false: print("hmm... something's not quite right. photo meta data saved.")
+                            case true: print("success! photo meta data saved.")
+                            }
+                        }
+                    }
+                    
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
     
     private class func downloadPhoto(from url: URL, completion: @escaping (Data?, Error?) -> Void) {
         taskForGETRequest(url: url) { (data, error) in
             if let error = error { completion(nil, error) }
             if let data = data { completion(data, nil) }
+        }
+    }
+    
+    class func downloadPhotoForIndexPath(_ indexPath: IndexPath, using controller: NSFetchedResultsController<Photo>, completion: @escaping (Data?, Error?) -> Void) {
+        let photo = controller.object(at: indexPath)
+        let url = URL(string: photo.url!)!
+        
+        downloadPhoto(from: url) { (data, error) in
+            if let data = data {
+                photo.data = data
+                DataController.save(completion: { (success) in
+                    completion(data, nil)
+                })
+            }
         }
     }
     
