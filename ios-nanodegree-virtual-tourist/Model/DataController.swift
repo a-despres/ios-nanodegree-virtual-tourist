@@ -116,4 +116,15 @@ class DataController {
             return nil
         }
     }
+    
+    class func fetchPins() -> [Pin]? {
+        let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
+        
+        do {
+            let pins = try shared.viewContext.fetch(fetchRequest)
+            return pins
+        } catch {
+            return nil
+        }
+    }
 }

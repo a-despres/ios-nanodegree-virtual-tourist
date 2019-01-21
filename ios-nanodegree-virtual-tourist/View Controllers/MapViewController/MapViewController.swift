@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-import CoreData
 
 class MapViewController: UIViewController {
     // MARK: - IBOutlets
@@ -76,9 +75,7 @@ class MapViewController: UIViewController {
         // Load data using core data controller
         DataController.shared.load()
         
-        let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
-        
-        if let result = try? DataController.shared.viewContext.fetch(fetchRequest) {
+        if let result = DataController.fetchPins() {
             pins = result
             place(pins: pins, on: mapView)
         }
