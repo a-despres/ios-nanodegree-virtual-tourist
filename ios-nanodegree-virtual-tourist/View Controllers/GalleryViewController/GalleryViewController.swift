@@ -59,8 +59,8 @@ class GalleryViewController: UIViewController {
         // remove all existing photos
         DataController.delete(photos: photos) { success in
             // download new photo set
-            let location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            Client.downloadMetaDataForLocation(location, completion: { (data, error) in
+            let location = Location(latitude: latitude, longitude: longitude)
+            Client.downloadMetadata(for: location, completion: { (metadata, error) in
                 
             })
         }

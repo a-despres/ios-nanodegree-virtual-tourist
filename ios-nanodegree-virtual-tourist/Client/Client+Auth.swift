@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: Flickr API Client - Authorization Properties
 extension Client {
     struct Auth {
         static let key: String = "c2d6f6dc3408cbabf7abc68e8970d721"

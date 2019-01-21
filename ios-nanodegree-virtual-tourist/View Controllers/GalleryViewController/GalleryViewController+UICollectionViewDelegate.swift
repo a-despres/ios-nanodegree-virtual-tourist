@@ -28,15 +28,20 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as! GalleryCollectionViewCell
-        let imageData = fetchedResultsController.object(at: indexPath).data!
+        let photoData = fetchedResultsController.object(at: indexPath).data!
         
         // hide activity indicator
-        if imageData.count > 0 {
+        if photoData.count > 0 {
             cell.activityIndicator.stopAnimating()
-            cell.photo.image = UIImage(data: imageData)
+            cell.photo.image = UIImage(data: photoData)
             cell.photo.contentMode = .scaleAspectFill
         } else {
-            Client.downloadPhotoForIndexPath(indexPath, using: fetchedResultsController) { (data, error) in }
+            let photo = fetchedResultsController.object(at: indexPath)
+            if let url = URL(string: photo.url!) {
+                Client.downloadPhoto(from: url) { (success, data, error) in
+                    if success { photo.data = data }
+                }
+            }
         }
         
         // customize how the favorite icon is displayed

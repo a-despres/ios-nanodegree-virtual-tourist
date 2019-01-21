@@ -8,7 +8,6 @@
 
 import UIKit
 import MapKit
-import CoreData
 
 // MARK: - Pin Annotations
 extension MapViewController {
@@ -55,8 +54,9 @@ extension MapViewController {
      */
     func drop(pin: MKPointAnnotation, on map: MKMapView, at point: CGPoint) {
         pin.coordinate = map.convert(point, toCoordinateFrom: map)
-        
+    
         let location = CLLocation(latitude: pin.coordinate.latitude, longitude: pin.coordinate.longitude)
+        
         geocodeLocation(location) { (placename, error) in
             if let error = error {
                 // TODO: Handle error appropriately
@@ -65,44 +65,7 @@ extension MapViewController {
                 pin.title = placename
                 
                 // Download image data
-//                Client.downloadPhotosForLocation(pin.coordinate)
-                
-                self.downloadStatusLocationName.text = pin.title!
-                self.toggleDownloadStatus(animated: true)
-                
-                Client.downloadMetaDataForLocation(pin.coordinate, completion: { (pin, error) in
-                    guard let pin = pin else { return }
-                    
-                    let count = pin.photos!.count
-                    var downloadCount = 0
-                    
-                    self.downloadStatusPhotoCount.text = "\(downloadCount) or \(count) Photos"
-                    
-                    for case let photo as Photo in pin.photos! {
-                        if let url = URL(string: photo.url!) {
-                            Client.downloadPhoto(from: url, completion: { (data, error) in
-                                if let data = data {
-                                    print(data)
-                                    downloadCount += 1
-                                    DispatchQueue.main.async { self.downloadStatusPhotoCount.text = "\(downloadCount) or \(count) Photos" }
-                                    
-                                    if downloadCount == count {
-                                        DispatchQueue.main.async {
-                                            self.hidePhotoCount()
-                                            self.downloadStatusActivityIndicator.stopAnimating()
-                                            self.downloadStatusGalleryButton.isEnabled = true
-                                            self.newPin = pin
-                                        }
-                                    }
-                                }
-                            })
-                        } else {
-                            print("Invalid URL")
-                            downloadCount += 1
-                            DispatchQueue.main.async { self.downloadStatusPhotoCount.text = "\(downloadCount) or \(count) Photos" }
-                        }
-                    }
-                })
+                Client.downloadMetadata(for: pin.coordinate.toLocation(), completion: self.handleDownloadMetadata(metadata:error:))
             }
         }
         
@@ -137,8 +100,11 @@ extension MapViewController {
      - parameter map: The `MKMapView` containing the `MKPointAnnotation`.
      */
     func remove(pin: MKPointAnnotation, from map: MKMapView) {
+        // create location object
+        let location = Location(latitude: pin.coordinate.latitude, longitude: pin.coordinate.longitude)
+        
         // remove from map and persistent store
-        if let pinToDelete = DataController.fetchPin(with: pin.coordinate) {
+        if let pinToDelete = DataController.fetchPin(with: location) {
             DataController.delete(pin: pinToDelete) { success in
                 switch success {
                 case false: print("Error") // TODO: Add error handler
@@ -171,6 +137,82 @@ extension MapViewController {
             } else {
                 completion(placemarks?.first?.name, nil)
             }
+        }
+    }
+}
+
+// MARK: - Helper and Completion Handler Functions
+extension MapViewController {
+    func downloadPhotos(for pin: Pin) {
+        let count = pin.photos!.count
+        var downloadCount = 0
+        
+        for case let photo as Photo in pin.photos! {
+            if let url = URL(string: photo.url!) {
+                Client.downloadPhoto(from: url) { (success, data, error) in
+                    if success {
+                        photo.data = data
+                        DataController.add(photo: photo, toPin: pin, completion: self.handleAddPhoto(success:))
+                        
+                        downloadCount += 1
+                        DispatchQueue.main.async { self.downloadStatusPhotoCount.text = "\(downloadCount) or \(count) Photos" }
+                        
+                        if downloadCount == count {
+                            DispatchQueue.main.async {
+                                self.hidePhotoCount()
+                                self.downloadStatusActivityIndicator.stopAnimating()
+                                self.downloadStatusGalleryButton.isEnabled = true
+                                self.newPin = pin
+                            }
+                        }
+                    }
+                }
+            } else {
+                print("Invalid URL") // TODO: Handle Invalid URL
+                downloadCount += 1
+                DispatchQueue.main.async { self.downloadStatusPhotoCount.text = "\(downloadCount) or \(count) Photos" }
+            }
+        }
+    }
+    
+    func handleDownloadMetadata(metadata: Client.Metadata?, error: Error?) {
+        if let error = error {
+            print(error) // TODO: Handle Error
+        }
+        
+        else if let metadata = metadata {
+            guard let pin = DataController.fetchPin(with: metadata.location) else { return }
+            let photos = metadata.response.photos.photos
+            
+            // show download status modal
+            self.downloadStatusLocationName.text = pin.name
+            self.toggleDownloadStatus(animated: true)
+            
+            // parse metadata and add to Core Data
+            for photo in photos {
+                print("\nTitle:", photo.title)
+                print("URL:", photo.url)
+
+                let photoToAdd = Photo(context: DataController.shared.viewContext)
+                photoToAdd.data = Data()
+                photoToAdd.title = photo.title
+                photoToAdd.url = photo.url
+
+                DataController.add(photo: photoToAdd, toPin: pin, completion: handleAddPhoto(success:))
+            }
+            
+            // set photo count label
+            downloadStatusPhotoCount.text = "0 of \(pin.photos!.count) Photos"
+            
+            // download images
+            downloadPhotos(for: pin)
+        }
+    }
+    
+    func handleAddPhoto(success: Bool) {
+        switch success {
+        case false: print("hmm... something's not quite right. photo metadata not saved.")
+        case true: print("success! photo metadata saved.")
         }
     }
 }

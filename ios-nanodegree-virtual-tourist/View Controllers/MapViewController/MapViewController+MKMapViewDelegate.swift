@@ -19,7 +19,7 @@ extension MapViewController: MKMapViewDelegate {
         switch isEditingMap {
         case false:
             view.isSelected = false
-            if let pin = DataController.fetchPin(with: view.annotation!.coordinate) {
+            if let pin = DataController.fetchPin(with: view.annotation!.coordinate.toLocation()) {
                 performSegue(withIdentifier: "showGallery", sender: pin)
             }
         case true:

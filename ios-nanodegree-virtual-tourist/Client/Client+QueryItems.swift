@@ -7,9 +7,14 @@
 //
 
 import Foundation
-import MapKit
 
+// MARK: Flickr API Client - Query Items
 extension Client {
+    
+    /**
+     Return a dictionary of query keys and values for the Flickr API.
+     - parameter method: The Flickr API method being used.
+     */
     internal class func queryItems(for method: Flickr.Method) -> [String: String] {
         let queryItems: [String: String] = [
             Flickr.QueryKey.method: method.method,
@@ -20,16 +25,18 @@ extension Client {
             Flickr.QueryKey.page: Flickr.QueryValue.page,
             Flickr.QueryKey.perPage: Flickr.QueryValue.perPage
         ]
-        
         return queryItems
     }
     
-    internal class func queryItems(for location: CLLocationCoordinate2D) -> [String: String] {
+    /**
+     Return a dictionary of query keys and values for to a location.
+     - parameter location: The latitude and longitude to be searched.
+     */
+    internal class func queryItems(for location: Location) -> [String: String] {
         let queryItems: [String: String] = [
             Flickr.QueryKey.latitude: "\(location.latitude)",
             Flickr.QueryKey.longitude: "\(location.longitude)"
         ]
-        
         return queryItems
     }
 }

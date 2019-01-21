@@ -9,9 +9,15 @@
 import Foundation
 
 struct FlickrPhotos: Codable {
+    let page: Int
+    let pages: Int
     let photos: [FlickrPhoto]
+    let total: String
     
     enum CodingKeys: String, CodingKey {
+        case page
+        case pages
         case photos = "photo"
+        case total
     }
 }

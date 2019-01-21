@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A12C17EB21F54D5A003AA821 /* URLComponents+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C17EA21F54D5A003AA821 /* URLComponents+Extension.swift */; };
+		A12C17EE21F556D3003AA821 /* Client+TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C17ED21F556D3003AA821 /* Client+TypeAlias.swift */; };
+		A12C17F021F574FE003AA821 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C17EF21F574FD003AA821 /* Location.swift */; };
+		A12C17F221F576EF003AA821 /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C17F121F576EF003AA821 /* CLLocation+Extension.swift */; };
 		A1486D5E21E5B5DE0046BE8E /* MapViewController+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1486D5D21E5B5DE0046BE8E /* MapViewController+Editing.swift */; };
 		A149073521EBB28800AB297C /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = A149073421EBB28800AB297C /* Client.swift */; };
 		A149073921EBB3CD00AB297C /* Client+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A149073821EBB3CD00AB297C /* Client+Auth.swift */; };
@@ -32,6 +36,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A12C17EA21F54D5A003AA821 /* URLComponents+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLComponents+Extension.swift"; sourceTree = "<group>"; };
+		A12C17ED21F556D3003AA821 /* Client+TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+TypeAlias.swift"; sourceTree = "<group>"; };
+		A12C17EF21F574FD003AA821 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		A12C17F121F576EF003AA821 /* CLLocation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
 		A1486D5D21E5B5DE0046BE8E /* MapViewController+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+Editing.swift"; sourceTree = "<group>"; };
 		A149073421EBB28800AB297C /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		A149073821EBB3CD00AB297C /* Client+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+Auth.swift"; sourceTree = "<group>"; };
@@ -69,6 +77,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A12C17EC21F54D75003AA821 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A12C17F121F576EF003AA821 /* CLLocation+Extension.swift */,
+				A12C17EA21F54D5A003AA821 /* URLComponents+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A149073321EBB24500AB297C /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +93,7 @@
 				A149073821EBB3CD00AB297C /* Client+Auth.swift */,
 				A152543D21EBBFD800BACC40 /* Client+Flickr.swift */,
 				A152544621EC035300BACC40 /* Client+QueryItems.swift */,
+				A12C17ED21F556D3003AA821 /* Client+TypeAlias.swift */,
 				A152544121EBFA5000BACC40 /* Model */,
 			);
 			path = Client;
@@ -87,6 +105,7 @@
 				A152543F21EBFA4600BACC40 /* FlickrPhoto.swift */,
 				A152544221EBFACA00BACC40 /* FlickrPhotos.swift */,
 				A152544421EBFE2B00BACC40 /* SearchResponse.swift */,
+				A12C17EF21F574FD003AA821 /* Location.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -122,6 +141,7 @@
 				A149073321EBB24500AB297C /* Client */,
 				A152545021EC0C8B00BACC40 /* Model */,
 				A1F2B98121E45B4C00F5CB68 /* Storyboards */,
+				A12C17EC21F54D75003AA821 /* Extensions */,
 				A1F2B98021E45B3600F5CB68 /* View Controllers */,
 				A1F2B96E21E45A6700F5CB68 /* AppDelegate.swift */,
 				A1F2B97521E45A6900F5CB68 /* Assets.xcassets */,
@@ -247,15 +267,19 @@
 				AA69B73C21F3A10800A745EF /* GalleryViewController+Editing.swift in Sources */,
 				A1F2B98B21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift in Sources */,
 				A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */,
+				A12C17EB21F54D5A003AA821 /* URLComponents+Extension.swift in Sources */,
 				A1C279E521F29E4A0014C546 /* GalleryCollectionViewCell.swift in Sources */,
 				A1F2B98321E45C7300F5CB68 /* MapViewController.swift in Sources */,
 				A152543E21EBBFD800BACC40 /* Client+Flickr.swift in Sources */,
 				A152544321EBFACA00BACC40 /* FlickrPhotos.swift in Sources */,
 				A149073521EBB28800AB297C /* Client.swift in Sources */,
+				A12C17EE21F556D3003AA821 /* Client+TypeAlias.swift in Sources */,
+				A12C17F021F574FE003AA821 /* Location.swift in Sources */,
 				A1F2B96F21E45A6700F5CB68 /* AppDelegate.swift in Sources */,
 				A1C279E321F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift in Sources */,
 				A152544521EBFE2B00BACC40 /* SearchResponse.swift in Sources */,
 				A152545221EC0E1000BACC40 /* DataController.swift in Sources */,
+				A12C17F221F576EF003AA821 /* CLLocation+Extension.swift in Sources */,
 				A1486D5E21E5B5DE0046BE8E /* MapViewController+Editing.swift in Sources */,
 				A152544021EBFA4600BACC40 /* FlickrPhoto.swift in Sources */,
 				A149073921EBB3CD00AB297C /* Client+Auth.swift in Sources */,

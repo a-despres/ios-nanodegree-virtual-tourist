@@ -8,12 +8,16 @@
 
 import Foundation
 
+// MARK: Flickr API Client - Static Properties
 extension Client {
+    
+    // MARK: - Flickr Properties
     struct Flickr {
         static let scheme = "https"
         static let host = "api.flickr.com"
         static let path = "/services/rest/"
         
+        // MARK: - Query Item Keys
         struct QueryKey {
             static let apiKey = "api_key"
             static let callback = "nojsoncallback"
@@ -29,15 +33,17 @@ extension Client {
             static let safeSearch = "safe_search"
         }
         
+        // MARK: - Query Item Values
         struct QueryValue {
             static var apiKey: String { return Auth.key }
             static let callback = "1"
             static let extras = "url_n"
             static let format = "json"
-            static var page: String { return "\(Int(arc4random_uniform(100)) + 1)" }
+            static var page: String = "1" // { return "\(Int(arc4random_uniform(100)) + 1)" } FIXME: random pages don't work properly
             static let perPage = "36"
         }
         
+        // MARK: - Flickr API Methods
         enum Method {
             case search
             

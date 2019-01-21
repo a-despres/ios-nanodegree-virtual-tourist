@@ -104,7 +104,7 @@ class DataController {
         }
     }
     
-    class func fetchPin(with coordinates: CLLocationCoordinate2D) -> Pin? {
+    class func fetchPin(with coordinates: Location) -> Pin? {
         let predicate = NSPredicate(format: "latitude == %@ AND longitude == %@", "\(coordinates.latitude)", "\(coordinates.longitude)")
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Pin")
         fetchRequest.predicate = predicate
