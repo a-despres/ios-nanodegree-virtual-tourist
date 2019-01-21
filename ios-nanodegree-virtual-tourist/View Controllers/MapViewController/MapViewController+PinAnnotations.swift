@@ -6,7 +6,6 @@
 //  Copyright © 2019 Andrew Despres. All rights reserved.
 //
 
-import UIKit
 import MapKit
 
 // MARK: - Pin Annotations

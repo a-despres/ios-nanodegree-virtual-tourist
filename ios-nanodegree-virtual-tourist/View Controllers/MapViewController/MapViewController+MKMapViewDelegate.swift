@@ -6,7 +6,6 @@
 //  Copyright © 2019 Andrew Despres. All rights reserved.
 //
 
-import Foundation
 import MapKit
 
 extension MapViewController: MKMapViewDelegate {
