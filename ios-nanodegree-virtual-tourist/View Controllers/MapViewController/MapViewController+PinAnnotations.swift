@@ -63,6 +63,10 @@ extension MapViewController {
             } else if let placename = placename {
                 pin.title = placename
                 
+                // show download status modal
+                self.downloadStatusLocationName.text = pin.title
+                self.toggleDownloadStatus(animated: true)
+                
                 // Download image data
                 Client.downloadMetadata(for: pin.coordinate.toLocation(), completion: self.handleDownloadMetadata(metadata:error:))
             }
@@ -182,10 +186,6 @@ extension MapViewController {
         else if let metadata = metadata {
             guard let pin = DataController.fetchPin(with: metadata.location) else { return }
             let photos = metadata.response.photos.photos
-            
-            // show download status modal
-            self.downloadStatusLocationName.text = pin.name
-            self.toggleDownloadStatus(animated: true)
             
             // parse metadata and add to Core Data
             for photo in photos {
