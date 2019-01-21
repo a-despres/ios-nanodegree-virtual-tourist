@@ -64,8 +64,9 @@ extension MapViewController {
                 pin.title = placename
                 
                 // show download status modal
-                self.downloadStatusLocationName.text = pin.title
-                self.toggleDownloadStatus(animated: true)
+                self.statusView.setLocationName(pin.title)
+                self.statusView.show()
+                self.statusView.start()
                 
                 // Download image data
                 Client.downloadMetadata(for: pin.coordinate.toLocation(), completion: self.handleDownloadMetadata(metadata:error:))
@@ -150,6 +151,8 @@ extension MapViewController {
         let count = pin.photos!.count
         var downloadCount = 0
         
+        statusView.totalPhotos = count
+        
         for case let photo as Photo in pin.photos! {
             if let url = URL(string: photo.url!) {
                 Client.downloadPhoto(from: url) { (success, data, error) in
@@ -158,13 +161,11 @@ extension MapViewController {
                         DataController.add(photo: photo, toPin: pin, completion: self.handleAddPhoto(success:))
                         
                         downloadCount += 1
-                        DispatchQueue.main.async { self.downloadStatusPhotoCount.text = "\(downloadCount) or \(count) Photos" }
+                        DispatchQueue.main.async { self.statusView.updateCount(downloadCount) }
                         
                         if downloadCount == count {
                             DispatchQueue.main.async {
-                                self.hidePhotoCount()
-                                self.downloadStatusActivityIndicator.stopAnimating()
-                                self.downloadStatusGalleryButton.isEnabled = true
+                                self.statusView.stop()
                                 self.newPin = pin
                             }
                         }
@@ -173,7 +174,6 @@ extension MapViewController {
             } else {
                 print("Invalid URL") // TODO: Handle Invalid URL
                 downloadCount += 1
-                DispatchQueue.main.async { self.downloadStatusPhotoCount.text = "\(downloadCount) or \(count) Photos" }
             }
         }
     }
@@ -199,9 +199,6 @@ extension MapViewController {
 
                 DataController.add(photo: photoToAdd, toPin: pin, completion: handleAddPhoto(success:))
             }
-            
-            // set photo count label
-            downloadStatusPhotoCount.text = "0 of \(pin.photos!.count) Photos"
             
             // download images
             downloadPhotos(for: pin)

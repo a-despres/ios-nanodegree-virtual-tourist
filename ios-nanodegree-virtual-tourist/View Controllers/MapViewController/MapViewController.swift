@@ -11,19 +11,11 @@ import MapKit
 
 class MapViewController: UIViewController {
     // MARK: - IBOutlets
-    @IBOutlet weak var downloadStatusActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var downloadStatusGalleryButton: UIButton!
-    @IBOutlet weak var downloadStatusLocationName: UILabel!
-    @IBOutlet weak var downloadStatusLocationNameVerticalConstraint: NSLayoutConstraint!
-    @IBOutlet weak var downloadStatusPhotoCount: UILabel!
-    @IBOutlet weak var downloadStatusPhotoCountVerticalConstraint: NSLayoutConstraint!
-    @IBOutlet weak var downloadStatusVerticalConstraint: NSLayoutConstraint!
-    @IBOutlet weak var downloadStatusView: UIView!
-    
+    @IBOutlet weak var statusView: DownloadStatusView!    
     @IBOutlet weak var instructionsVerticalConstraint: NSLayoutConstraint!
     @IBOutlet weak var instructionsView: UIView!
     @IBOutlet weak var editButton: UIBarButtonItem!
-    @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer!
+    @IBOutlet weak var longPressGestureRecognizer: UILongPressGestureRecognizer!
     @IBOutlet weak var mapView: MKMapView!
     
     // MARK: - Properties
@@ -65,6 +57,7 @@ class MapViewController: UIViewController {
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
+        statusView.delegate = self
         
         // Setup UI
         prepareUI()
@@ -93,8 +86,7 @@ class MapViewController: UIViewController {
     
     // MARK: - UI
     func prepareUI() {
-        downloadStatusGalleryButton.layer.cornerRadius = downloadStatusGalleryButton.frame.height / 2
-        downloadStatusView.layer.cornerRadius = downloadStatusView.frame.height / 2
+        statusView.hide()
         toggleDownloadStatus(animated: false)
     }
     
@@ -103,27 +95,13 @@ class MapViewController: UIViewController {
         
         switch isDownloading {
         case false:
-            downloadStatusPhotoCount.alpha = 1
-            downloadStatusPhotoCountVerticalConstraint.constant = 8
-            downloadStatusLocationNameVerticalConstraint.constant = -8
-            downloadStatusVerticalConstraint.constant = -96
+            statusView.start()
         case true:
-            downloadStatusVerticalConstraint.constant = 48
+            statusView.stop()
         }
         
         if animated {
             UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseInOut, animations: { self.view.layoutIfNeeded() }, completion: nil)
-        }
-    }
-    
-    func hidePhotoCount() {
-        
-        downloadStatusLocationNameVerticalConstraint.constant = 0
-        downloadStatusPhotoCountVerticalConstraint.constant = 16
-        downloadStatusPhotoCount.alpha = 0
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
         }
     }
 }

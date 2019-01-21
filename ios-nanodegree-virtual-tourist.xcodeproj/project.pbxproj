@@ -11,6 +11,8 @@
 		A12C17EE21F556D3003AA821 /* Client+TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C17ED21F556D3003AA821 /* Client+TypeAlias.swift */; };
 		A12C17F021F574FE003AA821 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C17EF21F574FD003AA821 /* Location.swift */; };
 		A12C17F221F576EF003AA821 /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C17F121F576EF003AA821 /* CLLocation+Extension.swift */; };
+		A12C17F421F6232C003AA821 /* DownloadStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12C17F321F6232C003AA821 /* DownloadStatusView.swift */; };
+		A12C17F721F624D4003AA821 /* DownloadStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A12C17F621F624D4003AA821 /* DownloadStatusView.xib */; };
 		A1486D5E21E5B5DE0046BE8E /* MapViewController+Editing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1486D5D21E5B5DE0046BE8E /* MapViewController+Editing.swift */; };
 		A149073521EBB28800AB297C /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = A149073421EBB28800AB297C /* Client.swift */; };
 		A149073921EBB3CD00AB297C /* Client+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A149073821EBB3CD00AB297C /* Client+Auth.swift */; };
@@ -21,6 +23,9 @@
 		A152544721EC035300BACC40 /* Client+QueryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152544621EC035300BACC40 /* Client+QueryItems.swift */; };
 		A152544F21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A152544D21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld */; };
 		A152545221EC0E1000BACC40 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152545121EC0E1000BACC40 /* DataController.swift */; };
+		A1A1E58521F6397400DD1007 /* DownloadStatusView+ClassMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58421F6397400DD1007 /* DownloadStatusView+ClassMethods.swift */; };
+		A1A1E58721F6882600DD1007 /* DownloadStatusView+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58621F6882600DD1007 /* DownloadStatusView+Protocol.swift */; };
+		A1A1E58921F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58821F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift */; };
 		A1C279E321F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E221F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift */; };
 		A1C279E521F29E4A0014C546 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E421F29E4A0014C546 /* GalleryCollectionViewCell.swift */; };
 		A1C279E721F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */; };
@@ -40,6 +45,8 @@
 		A12C17ED21F556D3003AA821 /* Client+TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+TypeAlias.swift"; sourceTree = "<group>"; };
 		A12C17EF21F574FD003AA821 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		A12C17F121F576EF003AA821 /* CLLocation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
+		A12C17F321F6232C003AA821 /* DownloadStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadStatusView.swift; sourceTree = "<group>"; };
+		A12C17F621F624D4003AA821 /* DownloadStatusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadStatusView.xib; sourceTree = "<group>"; };
 		A1486D5D21E5B5DE0046BE8E /* MapViewController+Editing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+Editing.swift"; sourceTree = "<group>"; };
 		A149073421EBB28800AB297C /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		A149073821EBB3CD00AB297C /* Client+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+Auth.swift"; sourceTree = "<group>"; };
@@ -50,6 +57,9 @@
 		A152544621EC035300BACC40 /* Client+QueryItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+QueryItems.swift"; sourceTree = "<group>"; };
 		A152544E21EC0C8300BACC40 /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 		A152545121EC0E1000BACC40 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		A1A1E58421F6397400DD1007 /* DownloadStatusView+ClassMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadStatusView+ClassMethods.swift"; sourceTree = "<group>"; };
+		A1A1E58621F6882600DD1007 /* DownloadStatusView+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadStatusView+Protocol.swift"; sourceTree = "<group>"; };
+		A1A1E58821F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+DownloadStatusViewDelegate.swift"; sourceTree = "<group>"; };
 		A1C279E221F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		A1C279E421F29E4A0014C546 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewController+NSFetchedResultsControllerDelegate.swift"; sourceTree = "<group>"; };
@@ -84,6 +94,17 @@
 				A12C17EA21F54D5A003AA821 /* URLComponents+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A12C17F521F62338003AA821 /* DownloadStatusView */ = {
+			isa = PBXGroup;
+			children = (
+				A12C17F321F6232C003AA821 /* DownloadStatusView.swift */,
+				A1A1E58421F6397400DD1007 /* DownloadStatusView+ClassMethods.swift */,
+				A1A1E58621F6882600DD1007 /* DownloadStatusView+Protocol.swift */,
+				A12C17F621F624D4003AA821 /* DownloadStatusView.xib */,
+			);
+			path = DownloadStatusView;
 			sourceTree = "<group>";
 		};
 		A149073321EBB24500AB297C /* Client */ = {
@@ -183,7 +204,9 @@
 		A1F2B98521E45CC500F5CB68 /* MapViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A12C17F521F62338003AA821 /* DownloadStatusView */,
 				A1F2B98221E45C7300F5CB68 /* MapViewController.swift */,
+				A1A1E58821F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift */,
 				A1486D5D21E5B5DE0046BE8E /* MapViewController+Editing.swift */,
 				A1F2B98821E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift */,
 				A1F2B98A21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift */,
@@ -251,6 +274,7 @@
 			files = (
 				A1F2B97921E45A6900F5CB68 /* LaunchScreen.storyboard in Resources */,
 				A1F2B97621E45A6900F5CB68 /* Assets.xcassets in Resources */,
+				A12C17F721F624D4003AA821 /* DownloadStatusView.xib in Resources */,
 				A1F2B97421E45A6700F5CB68 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +289,7 @@
 				A152544F21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld in Sources */,
 				A1F2B98921E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift in Sources */,
 				AA69B73C21F3A10800A745EF /* GalleryViewController+Editing.swift in Sources */,
+				A1A1E58921F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift in Sources */,
 				A1F2B98B21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift in Sources */,
 				A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */,
 				A12C17EB21F54D5A003AA821 /* URLComponents+Extension.swift in Sources */,
@@ -278,12 +303,15 @@
 				A1F2B96F21E45A6700F5CB68 /* AppDelegate.swift in Sources */,
 				A1C279E321F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift in Sources */,
 				A152544521EBFE2B00BACC40 /* SearchResponse.swift in Sources */,
+				A1A1E58521F6397400DD1007 /* DownloadStatusView+ClassMethods.swift in Sources */,
 				A152545221EC0E1000BACC40 /* DataController.swift in Sources */,
 				A12C17F221F576EF003AA821 /* CLLocation+Extension.swift in Sources */,
+				A12C17F421F6232C003AA821 /* DownloadStatusView.swift in Sources */,
 				A1486D5E21E5B5DE0046BE8E /* MapViewController+Editing.swift in Sources */,
 				A152544021EBFA4600BACC40 /* FlickrPhoto.swift in Sources */,
 				A149073921EBB3CD00AB297C /* Client+Auth.swift in Sources */,
 				A1C279E721F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift in Sources */,
+				A1A1E58721F6882600DD1007 /* DownloadStatusView+Protocol.swift in Sources */,
 				A152544721EC035300BACC40 /* Client+QueryItems.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
