@@ -65,15 +65,10 @@ class Client {
     /**
      Download a photo from a given URL.
      - parameter url: The `URL` where the photo can be found.
+     - parameter photo: The `Photo` associated with the URL.
+     - parameter pin: The `Pin` association with the URL.
      - parameter completion: A closure which is called with optional data, and an optional error.
      */
-//    class func downloadPhoto(from url: URL, completion: @escaping DownloadPhotoHandler) {
-//        taskForGETRequest(url: url) { (data, error) in
-//            if let error = error { completion(false, nil, error) }
-//            else if let data = data { completion(true, data, nil) }
-//        }
-//    }
-    
     class func downloadPhoto(from url: URL, for photo: Photo, in pin: Pin, completion: @escaping DownloadPhotoHandler) {
         taskForGETRequest(url: url) { (data, error) in
             if let error = error {
