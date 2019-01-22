@@ -41,6 +41,7 @@ extension DownloadStatusView {
         switch status {
         case .complete:
             activityIndicator.stopAnimating()
+            resetDownloaded()
             setupButton(backgroundColor: enabledColor, icon: enbabledIcon, state: .normal, isEnabled: true, width: enabledWidth)
             setupLocationText(verticalOffset: 0)
             setupStatusText(alpha: 0, verticalOffset: 16)
@@ -74,12 +75,9 @@ extension DownloadStatusView {
         }
     }
     
-    /**
-     Update the download count value of the status text.
-     - parameter count: The value to be displayed in the status text.
-     */
-    func updateCount(_ count: Int) {
-        status.text = StatusString.downloading(count, total).stringValue
+    /// Update the download count value of the status text.
+    func updateCount() {
+        status.text = StatusString.downloading(downloaded, total).stringValue
     }
     
     // MARK: - Private Class Methods

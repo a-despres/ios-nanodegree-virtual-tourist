@@ -8,81 +8,61 @@
 
 import MapKit
 
-// MARK: - Pin Annotations
+// MARK: Map View Controller - Pin Annotations
 extension MapViewController {
     
     /**
-     Add a pin to the `MKMapView` at a specified point.
+     Add an annotation to the `MKMapView` at a specified point.
      
-     This is the first method in a series of methods for adding and respositioning pins in an `MKMapView`.
+     This is the first method in a series of methods for adding and respositioning annotations in an `MKMapView`.
      This method places a `MKPointAnnotation` view in an `MKMapView` at a specified location.
      
-     - parameter pin: An `MKPointAnnotation` to be placed in the `MKMapView`.
+     - parameter annotation: An `MKPointAnnotation` to be placed in the `MKMapView`.
      - parameter map: The `MKMapView` in which to place the `MKPointAnnotation`.
      - parameter point: The position at which to place the `MKPointAnnotation`.
      */
-    func add(pin: MKPointAnnotation, to map: MKMapView, at point: CGPoint) {
-        pin.coordinate = map.convert(point, toCoordinateFrom: map)
-        mapView.addAnnotation(pin)
+    func add(annotation: MKPointAnnotation, to map: MKMapView, at point: CGPoint) {
+        annotation.coordinate = map.convert(point, toCoordinateFrom: map)
+        mapView.addAnnotation(annotation)
     }
     
     /**
-     Move a pin in the `MKMapView` to a specified point.
+     Move an annotation in the `MKMapView` to a specified point.
      
-     This is the second method in a series of methods for adding and repositioning pins in an `MKMapView`.
+     This is the second method in a series of methods for adding and repositioning annotations in an `MKMapView`.
      This method is used to move an existing `MKPointAnnotation` view within an `MKMapView`.
      
-     - parameter pin: The `MKPointAnnotation` to be repositioned in the `MKMapView`.
+     - parameter annotation: The `MKPointAnnotation` to be repositioned in the `MKMapView`.
      - parameter map: The `MKMapView` containing the `MKPointAnnotation`.
      - parameter point: The position at which to place the `MKPointAnnotation`.
      */
-    func move(pin: MKPointAnnotation, on map: MKMapView, to point: CGPoint) {
-        pin.coordinate = map.convert(point, toCoordinateFrom: map)
+    func move(annotation: MKPointAnnotation, on map: MKMapView, to point: CGPoint) {
+        annotation.coordinate = map.convert(point, toCoordinateFrom: map)
     }
     
     /**
-     Drop a pin in the `MKMapView` at a specified point and display the annotation title.
+     Drop an annotation in the `MKMapView` at a specified point.
      
-     This the last method in a series of methods for adding and repositioning pins in an `MKMapView`.
+     This the last method in a series of methods for adding and repositioning annotations in an `MKMapView`.
      This method does not add the `MKPointAnnotation` view to `MKMapView`, but instead positions an
-     existing `MKPointAnnotation` view and sets the title property to a Geo-coded placename.
+     existing `MKPointAnnotation` view and fetches the locality by geocoding its coordinates.
      
-     - parameter pin: An `MKPointAnnotation` to be placed in the `MKMapView`.
+     If a placename can be determined the download process for metadata and images will then commence.
+     
+     - parameter annotation: An `MKPointAnnotation` to be placed in the `MKMapView`.
      - parameter map: The `MKMapView` containing the `MKPointAnnotation`.
      - parameter point: The position at which to place the `MKPointAnnotation`.
      */
-    func drop(pin: MKPointAnnotation, on map: MKMapView, at point: CGPoint) {
-        pin.coordinate = map.convert(point, toCoordinateFrom: map)
-    
-        let location = CLLocation(latitude: pin.coordinate.latitude, longitude: pin.coordinate.longitude)
-        
-        geocodeLocation(location) { (placename, error) in
-            if let error = error {
-                // TODO: Handle error appropriately
-                print("Error:", error)
-            } else if let placename = placename {
-                pin.title = placename
-                
-                // show download status modal
-                self.statusView.setLocationName(pin.title)
-                self.statusView.setVisible(true, animated: true)
-                self.statusView.setStatus(.preparing, animated: true)
-                
-                // Download image data
-                Client.downloadMetadata(for: pin.coordinate.toLocation(), completion: self.handleDownloadMetadata(metadata:error:))
-            }
-        }
-        
-        // add pin to persistent store, otherwise remove pin from map
-        DataController.addPin(with: location.coordinate) { [unowned self] success in
-            // Remove pin from map if saving failed
-            if !success {
-                self.remove(pin: pin, from: map)
-                // TODO: Add error handler
-            }
-        }
+    func drop(annotation: MKPointAnnotation, on map: MKMapView, at point: CGPoint) {
+        annotation.coordinate = map.convert(point, toCoordinateFrom: map)
+        geocode(annotation: annotation, on: map, completion: handleGeocodeLocation(annotation:name:error:))
     }
     
+    /**
+     Place existing Pins in the `MKMapView` as annotations.
+     - parameter pins: An array of `Pin` objects to iterate through and position on the map.
+     - parameter map: The `MKMapView` to contain the annotations.
+     */
     func place(pins: [Pin], on map: MKMapView) {
         for pin in pins {
             let annotation = MKPointAnnotation()
@@ -100,21 +80,16 @@ extension MapViewController {
      has been removed, the method checks the number of annotations remaining on `MKMapView`.
      If all annotations have been removed the Editing state is set to `false` and the UI is updated.
      
-     - parameter pin: The `MKPointAnnotation` to be removed.
+     - parameter annotation: The `MKPointAnnotation` to be removed.
      - parameter map: The `MKMapView` containing the `MKPointAnnotation`.
      */
-    func remove(pin: MKPointAnnotation, from map: MKMapView) {
+    func remove(annotation: MKPointAnnotation, from map: MKMapView) {
         // create location object
-        let location = Location(latitude: pin.coordinate.latitude, longitude: pin.coordinate.longitude)
+        let location = Location(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
         
         // remove from map and persistent store
         if let pinToDelete = DataController.fetchPin(with: location) {
-            DataController.delete(pin: pinToDelete) { success in
-                switch success {
-                case false: print("Error") // TODO: Add error handler
-                case true: map.removeAnnotation(pin)
-                }
-            }
+            DataController.delete(pin: pinToDelete, with: annotation, from: map, completion: handleDeletePin(annotation:map:success:))
         }
 
         if map.annotations.count == 0 {
@@ -133,13 +108,17 @@ extension MapViewController {
      - parameter location: The `CLLocation` to be geocoded.
      - parameter completion: A closure containing an optional `String` or `Error`.
      */
-    func geocodeLocation(_ location: CLLocation, completion: @escaping (String?, Error?) -> Void) {
+    func geocode(annotation: MKPointAnnotation, on map: MKMapView, completion: @escaping GeocodeHandler) {
+        let location = CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+        
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
             if let error = error {
-                completion(nil, error)
+                completion(annotation, nil, error)
             } else {
-                completion(placemarks?.first?.name, nil)
+                // add annotation to persistent store as a Pin, otherwise remove annotation from map
+                DataController.add(pin: annotation, from: map, completion: self.handleAddPin(annotation:map:success:))
+                completion(annotation, placemarks?.first?.locality, nil)
             }
         }
     }
@@ -147,40 +126,53 @@ extension MapViewController {
 
 // MARK: - Helper and Completion Handler Functions
 extension MapViewController {
+    
+    /**
+     Download the photos for the given Pin.
+     - parameter pin: The `Pin` object the photos will be associated with after downloading.
+     */
     func downloadPhotos(for pin: Pin) {
-        let count = pin.photos!.count
-        var downloadCount = 0
         
-        statusView.setTotal(count)
+        // Pass the total number of photos to the DownloadStatusView
+        statusView.setTotal(pin.photos!.count)
         
+        // Iterate through the photo URLs and download the data
         for case let photo as Photo in pin.photos! {
             if let url = URL(string: photo.url!) {
-                Client.downloadPhoto(from: url) { (success, data, error) in
-                    if success {
-                        photo.data = data
-                        DataController.add(photo: photo, toPin: pin, completion: self.handleAddPhoto(success:))
-                        
-                        downloadCount += 1
-                        DispatchQueue.main.async { self.statusView.updateCount(downloadCount) }
-                        
-                        if downloadCount == count {
-                            DispatchQueue.main.async {
-                                self.statusView.setStatus(.complete, animated: true)
-                                self.newPin = pin
-                            }
-                        }
-                    }
-                }
+                Client.downloadPhoto(from: url, for: photo, in: pin, completion: handleDownloadPhoto(associated:response:error:))
             } else {
-                print("Invalid URL") // TODO: Handle Invalid URL
-                downloadCount += 1
+                // TODO: Handle Error
+                print("Error: Invalid URL")
             }
         }
     }
     
+    /**
+     Completion handler for DataController.delete(pin:)
+     - parameter annotation: The annotation associated with the `Pin` object.
+     - parameter map: The `MKMapView` containing the annotation.
+     - parameter success: The boolean value indicating if the delete process was successful.
+     */
+    func handleDeletePin(annotation: MKPointAnnotation, map: MKMapView, success: Bool) {
+        switch success {
+        case false:
+            // TODO: Handle Error
+            print("Error: Pin not deleted.")
+            
+        case true:
+            map.removeAnnotation(annotation)
+        }
+    }
+    
+    /**
+     Completion handler for Client.downloadMetadata(for:completion:)
+     - parameter metadata: The metadata returned by the download process. (optional)
+     - parameter error: The `Error` object describing how the download failed. (optional)
+     */
     func handleDownloadMetadata(metadata: Client.Metadata?, error: Error?) {
         if let error = error {
-            print(error) // TODO: Handle Error
+            // TODO: Handle Error
+            print("Error:", error)
         }
         
         else if let metadata = metadata {
@@ -189,15 +181,12 @@ extension MapViewController {
             
             // parse metadata and add to Core Data
             for photo in photos {
-                print("\nTitle:", photo.title)
-                print("URL:", photo.url)
-
                 let photoToAdd = Photo(context: DataController.shared.viewContext)
                 photoToAdd.data = Data()
                 photoToAdd.title = photo.title
                 photoToAdd.url = photo.url
 
-                DataController.add(photo: photoToAdd, toPin: pin, completion: handleAddPhoto(success:))
+                DataController.add(photo: photoToAdd, to: pin, completion: handleAddPhoto(photo:pin:success:))
             }
             
             // download images
@@ -205,10 +194,71 @@ extension MapViewController {
         }
     }
     
-    func handleAddPhoto(success: Bool) {
+    /**
+     Completion handler for Client.downloadPhoto(from:for:in:completion:)
+     _ parameter associated: The `Photo` and `Pin` objects associated with the photo being downloaded.
+     - parameter response: A tuple containing the photo data being returned from the download (optional) and the boolean value indicating if the download was successful.
+     - parameter error: The `Error` object describing how the download failed. (optional)
+     */
+    func handleDownloadPhoto(associated: (photo: Photo, pin: Pin), response: (data: Data?, success: Bool), error: Error?) {
+        if response.success {
+            associated.photo.data = response.data
+            DataController.add(photo: associated.photo, to: associated.pin, completion: handleAddPhoto(photo:pin:success:))
+        }
+    }
+    
+    /**
+     Completion handler for DataController.add(pin:from:completion:)
+     - parameter annotation: The annotation that was parsed to create the pin.
+     - parameter map: The `MKMapView` containing the annotation.
+     - parameter success: The boolean value indicating if the pin has been saved in Core Data.
+     */
+    func handleAddPin(annotation: MKPointAnnotation, map: MKMapView, success: Bool) {
+        if !success { remove(annotation: annotation, from: map) }
+    }
+    
+    /**
+     Completion handler for DataController.add(photo:to:completion:)
+     - parameter success: The boolean value indicating if the photo has been saved in Core Data.
+     */
+    func handleAddPhoto(photo: Photo, pin: Pin, success: Bool) {
         switch success {
-        case false: print("hmm... something's not quite right. photo metadata not saved.")
-        case true: print("success! photo metadata saved.")
+        case false:
+            // TODO: Handle Error
+            print("Error: Photo data not saved.")
+            
+        case true:
+            if photo.data!.count > 0 {
+                statusView.incrementDownloaded()
+            }
+            
+            if statusView.downloaded == statusView.total {
+                statusView.setStatus(.complete, animated: true)
+                newPin = pin
+            }
+        }
+    }
+    
+    /**
+     Completion handler for geocode(pin:on:completion:)
+     - parameter annotation: The annotation that was used in the geocoding process.
+     - parameter name: The locality name returned by the geocoding process. (optional)
+     - parameter error: The `Error` object describing how the geocoding process failed. (optional)
+     */
+    func handleGeocodeLocation(annotation: MKPointAnnotation, name: String?, error: Error?) {
+        if let error = error {
+            // TODO: Handle Error
+            print("Error:", error)
+        }
+        
+        else if let name = name {
+            // show download status modal
+            statusView.setLocationName(name)
+            statusView.setVisible(true, animated: true)
+            statusView.setStatus(.preparing, animated: true)
+            
+            // download image data
+            Client.downloadMetadata(for: annotation.coordinate.toLocation(), completion: handleDownloadMetadata(metadata:error:))
         }
     }
 }

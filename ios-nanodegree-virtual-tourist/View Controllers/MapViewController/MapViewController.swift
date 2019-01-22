@@ -9,11 +9,11 @@
 import UIKit
 import MapKit
 
+// MARK: Map View Controller
 class MapViewController: UIViewController {
     
     // MARK: - Properties
     var activePin: MKPointAnnotation!
-//    var isDownloading: Bool = true
     var isEditingMap: Bool = false
     var newPin: Pin!
     var pins: [Pin] = [Pin]()
@@ -43,13 +43,13 @@ class MapViewController: UIViewController {
             switch sender.state {
             case .began:
                 activePin = MKPointAnnotation()
-                add(pin: activePin, to: mapView, at: point)
+                add(annotation: activePin, to: mapView, at: point)
                 
             case .changed:
-                move(pin: activePin, on: mapView, to: point)
+                move(annotation: activePin, on: mapView, to: point)
                 
             case .ended:
-                drop(pin: activePin, on: mapView, at: point)
+                drop(annotation: activePin, on: mapView, at: point)
                 activePin = nil
                 
             default: break
@@ -86,19 +86,4 @@ class MapViewController: UIViewController {
             galleryVC.pin = pin
         }
     }
-    
-    // MARK: - UI
-//    func prepareUI() {
-//        statusView.hide()
-//        toggleDownloadStatus(animated: false)
-//    }
-    
-//    func toggleDownloadStatus(animated: Bool) {
-//        isDownloading = !isDownloading
-//
-//        switch isDownloading {
-//        case false: statusView.start()
-//        case true: statusView.stop()
-//        }
-//    }
 }

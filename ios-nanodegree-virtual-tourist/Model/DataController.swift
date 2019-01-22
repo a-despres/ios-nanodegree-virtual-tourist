@@ -47,13 +47,13 @@ class DataController {
     
     // MARK: - Photo Helper Functions
     
-    class func add(photo: Photo, toPin pin: Pin, completion: @escaping (_ success: Bool) -> Void) {
+    class func add(photo: Photo, to pin: Pin, completion: @escaping (_ photo: Photo, _ pin: Pin, _ success: Bool) -> Void) {
         photo.pin = pin
                 
         save { success in
             switch success {
-            case false: completion(false)
-            case true: completion(true)
+            case false: completion(photo, pin, false)
+            case true: completion(photo, pin, true)
             }
         }
     }
@@ -80,26 +80,25 @@ class DataController {
     
     
     // MARK: - Pin Helper Functions
-    
-    class func addPin(with coordinates: CLLocationCoordinate2D, completion: @escaping (_ success: Bool) -> Void) {
-        let pin = Pin(context: DataController.shared.viewContext)
-        pin.latitude = "\(coordinates.latitude)"
-        pin.longitude = "\(coordinates.longitude)"
+    class func add(pin: MKPointAnnotation, from map: MKMapView, completion: @escaping (_ pin: MKPointAnnotation, _ map: MKMapView, _ success: Bool) -> Void) {
+        let pinToAdd = Pin(context: shared.viewContext)
+        pinToAdd.latitude = "\(pin.coordinate.latitude)"
+        pinToAdd.longitude = "\(pin.coordinate.longitude)"
         
         save { success in
             switch success {
-            case false: completion(false)
-            case true: completion(true)
+            case false: completion(pin, map, false)
+            case true: completion(pin, map, true)
             }
         }
     }
     
-    class func delete(pin: Pin, completion: @escaping (_ success: Bool) -> Void) {
+    class func delete(pin: Pin, with annotation: MKPointAnnotation, from map: MKMapView, completion: @escaping (_ annotation: MKPointAnnotation, _ map: MKMapView, _ success: Bool) -> Void) {
         shared.viewContext.delete(pin)
         save { success in
             switch success {
-            case false: completion(false)
-            case true: completion(true)
+            case false: completion(annotation, map, false)
+            case true: completion(annotation, map, true)
             }
         }
     }

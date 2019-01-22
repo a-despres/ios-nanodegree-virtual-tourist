@@ -38,8 +38,8 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout, UICollectio
         } else {
             let photo = fetchedResultsController.object(at: indexPath)
             if let url = URL(string: photo.url!) {
-                Client.downloadPhoto(from: url) { (success, data, error) in
-                    if success { photo.data = data }
+                Client.downloadPhoto(from: url, for: photo, in: pin) { (associated: (photo: Photo, pin: Pin), response: (data: Data?, success: Bool), error: Error?) in
+                    if response.success { photo.data = response.data }
                 }
             }
         }

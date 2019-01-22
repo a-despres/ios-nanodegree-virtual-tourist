@@ -8,7 +8,9 @@
 
 import MapKit
 
+// MARK: Map View Controller - Map View Delegate
 extension MapViewController: MKMapViewDelegate {
+    
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         // Enable the edit button if disabled
         if !editButton.isEnabled { editButton.isEnabled = true }
@@ -23,8 +25,9 @@ extension MapViewController: MKMapViewDelegate {
             if let pin = DataController.fetchPin(with: view.annotation!.coordinate.toLocation()) {
                 performSegue(withIdentifier: "showGallery", sender: pin)
             }
+            
         case true:
-            remove(pin: view.annotation as! MKPointAnnotation, from: mapView)
+            remove(annotation: view.annotation as! MKPointAnnotation, from: mapView)
         }
     }
 }

@@ -18,6 +18,7 @@ class DownloadStatusView: UIView {
     private let xibName = "DownloadStatusView"
     
     // MARK: - Public Properties
+    public private(set) var downloaded: Int = 0
     public private(set) var isVisible: Bool = true
     public private(set) var total: Int = 0
     
@@ -109,6 +110,18 @@ class DownloadStatusView: UIView {
     }
     
     // MARK: - Property Setters
+    
+    /// Sets the number of photos downloading by incrementing the value by 1.
+    func incrementDownloaded() {
+        downloaded += 1
+        updateCount()
+    }
+    
+    /// Resets the number of photos downloaded to 0.
+    func resetDownloaded() {
+        downloaded = 0
+        updateCount()
+    }
     
     /**
      Set the total number of photos to be downloaded.

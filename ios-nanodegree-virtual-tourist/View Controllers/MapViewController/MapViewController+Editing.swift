@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK: - Editing
+// MARK: Map View Controller - Editing
 extension MapViewController {
     
     /// Manages the UI to depict the current editing state.

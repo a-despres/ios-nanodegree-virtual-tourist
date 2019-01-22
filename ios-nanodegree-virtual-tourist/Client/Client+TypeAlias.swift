@@ -22,7 +22,14 @@ extension Client {
      - parameter data: The photo data returned from the download. (optional)
      - parameter error: The `Error` object describing how the download failed. (optional)
      */
-    typealias DownloadPhotoHandler = (_ success: Bool, _ data: PhotoData?, _ error: Error?) -> Void
+//    typealias DownloadPhotoHandler = (_ success: Bool, _ data: PhotoData?, _ error: Error?) -> Void
+    
+    /**
+     _ parameter associated: The `Photo` and `Pin` objects associated with the photo being downloaded.
+     - parameter response: A tuple containing the photo data being returned from the download (optional) and the boolean value indicating if the download was successful.
+     - parameter error: The `Error` object describing how the download failed. (optional)
+     */
+    typealias DownloadPhotoHandler = (_ associated: (Photo, Pin), _ response: (PhotoData?, Bool), _ error: Error?) -> Void
     
     /**
      - parameter metadata: A dictionary containing the `Location` and returned metadata if all of the metadata is parsed properly. (optional)

@@ -23,6 +23,7 @@
 		A152544721EC035300BACC40 /* Client+QueryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152544621EC035300BACC40 /* Client+QueryItems.swift */; };
 		A152544F21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A152544D21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld */; };
 		A152545221EC0E1000BACC40 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A152545121EC0E1000BACC40 /* DataController.swift */; };
+		A157E08821F6D0EE008286A3 /* MapViewController+TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = A157E08721F6D0EE008286A3 /* MapViewController+TypeAlias.swift */; };
 		A1A1E58521F6397400DD1007 /* DownloadStatusView+ClassMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58421F6397400DD1007 /* DownloadStatusView+ClassMethods.swift */; };
 		A1A1E58721F6882600DD1007 /* DownloadStatusView+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58621F6882600DD1007 /* DownloadStatusView+Protocol.swift */; };
 		A1A1E58921F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58821F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift */; };
@@ -59,6 +60,7 @@
 		A152544621EC035300BACC40 /* Client+QueryItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Client+QueryItems.swift"; sourceTree = "<group>"; };
 		A152544E21EC0C8300BACC40 /* VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
 		A152545121EC0E1000BACC40 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		A157E08721F6D0EE008286A3 /* MapViewController+TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+TypeAlias.swift"; sourceTree = "<group>"; };
 		A1A1E58421F6397400DD1007 /* DownloadStatusView+ClassMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadStatusView+ClassMethods.swift"; sourceTree = "<group>"; };
 		A1A1E58621F6882600DD1007 /* DownloadStatusView+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadStatusView+Protocol.swift"; sourceTree = "<group>"; };
 		A1A1E58821F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+DownloadStatusViewDelegate.swift"; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				A1486D5D21E5B5DE0046BE8E /* MapViewController+Editing.swift */,
 				A1F2B98821E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift */,
 				A1F2B98A21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift */,
+				A157E08721F6D0EE008286A3 /* MapViewController+TypeAlias.swift */,
 			);
 			path = MapViewController;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				A1486D5E21E5B5DE0046BE8E /* MapViewController+Editing.swift in Sources */,
 				A152544021EBFA4600BACC40 /* FlickrPhoto.swift in Sources */,
 				A149073921EBB3CD00AB297C /* Client+Auth.swift in Sources */,
+				A157E08821F6D0EE008286A3 /* MapViewController+TypeAlias.swift in Sources */,
 				A1C279E721F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift in Sources */,
 				A1A1E58721F6882600DD1007 /* DownloadStatusView+Protocol.swift in Sources */,
 				A152544721EC035300BACC40 /* Client+QueryItems.swift in Sources */,
