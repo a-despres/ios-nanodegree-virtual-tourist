@@ -6,8 +6,8 @@
 //  Copyright © 2019 Andrew Despres. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol DownloadStatusViewDelegate {
-    func buttonPressed()
+    func downloadStatusView(_ downloadStatusView: DownloadStatusView, buttonTapped button: UIButton)
 }

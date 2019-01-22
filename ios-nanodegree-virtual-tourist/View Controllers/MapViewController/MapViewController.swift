@@ -10,57 +10,60 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
-    // MARK: - IBOutlets
-    @IBOutlet weak var statusView: DownloadStatusView!    
-    @IBOutlet weak var instructionsVerticalConstraint: NSLayoutConstraint!
-    @IBOutlet weak var instructionsView: UIView!
-    @IBOutlet weak var editButton: UIBarButtonItem!
-    @IBOutlet weak var longPressGestureRecognizer: UILongPressGestureRecognizer!
-    @IBOutlet weak var mapView: MKMapView!
     
     // MARK: - Properties
     var activePin: MKPointAnnotation!
-    var isDownloading: Bool = true
+//    var isDownloading: Bool = true
     var isEditingMap: Bool = false
     var newPin: Pin!
     var pins: [Pin] = [Pin]()
+    
+    // MARK: - IBOutlets
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var instructionsVerticalConstraint: NSLayoutConstraint!
+    @IBOutlet weak var instructionsView: UIView!
+    @IBOutlet weak var longPressGestureRecognizer: UILongPressGestureRecognizer!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var statusView: DownloadStatusView!
     
     // MARK: - IBActions
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         toggleEditingState()
     }
     
+    /**
+     Handle a long press gesture by the user.
+     - parameter sender: The gesture recognizer registering the user's input.
+     */
     @IBAction func handleLongPressGesture(_ sender: UILongPressGestureRecognizer) {
-        let point = sender.location(in: mapView)
-        
-        switch sender.state {
-        case .began:
-            activePin = MKPointAnnotation()
-            add(pin: activePin, to: mapView, at: point)
+        // only handle a long press gesture if the user is not editing the map.
+        if !isEditingMap {
+            let point = sender.location(in: mapView)
             
-        case .changed:
-            move(pin: activePin, on: mapView, to: point)
-            
-        case .ended:
-            drop(pin: activePin, on: mapView, at: point)
-            activePin = nil
-            
-        default: break
+            switch sender.state {
+            case .began:
+                activePin = MKPointAnnotation()
+                add(pin: activePin, to: mapView, at: point)
+                
+            case .changed:
+                move(pin: activePin, on: mapView, to: point)
+                
+            case .ended:
+                drop(pin: activePin, on: mapView, at: point)
+                activePin = nil
+                
+            default: break
+            }
         }
-    }
-    
-    @IBAction func viewGalleryButtonTapped(_ sender: UIButton) {
-        toggleDownloadStatus(animated: false)
-        performSegue(withIdentifier: "showGallery", sender: newPin)
     }
     
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
-        statusView.delegate = self
         
-        // Setup UI
-        prepareUI()
+        // setup status view
+        statusView.delegate = self
+        statusView.view(to: .preparing, isVisible: false, isAnimated: false)
         
         // Move instructions view off screen
         toggleInstructionsView(animated: false)
@@ -85,23 +88,17 @@ class MapViewController: UIViewController {
     }
     
     // MARK: - UI
-    func prepareUI() {
-        statusView.hide()
-        toggleDownloadStatus(animated: false)
-    }
+//    func prepareUI() {
+//        statusView.hide()
+//        toggleDownloadStatus(animated: false)
+//    }
     
-    func toggleDownloadStatus(animated: Bool) {
-        isDownloading = !isDownloading
-        
-        switch isDownloading {
-        case false:
-            statusView.start()
-        case true:
-            statusView.stop()
-        }
-        
-        if animated {
-            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: .curveEaseInOut, animations: { self.view.layoutIfNeeded() }, completion: nil)
-        }
-    }
+//    func toggleDownloadStatus(animated: Bool) {
+//        isDownloading = !isDownloading
+//
+//        switch isDownloading {
+//        case false: statusView.start()
+//        case true: statusView.stop()
+//        }
+//    }
 }

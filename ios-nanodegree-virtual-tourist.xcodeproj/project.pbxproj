@@ -26,6 +26,8 @@
 		A1A1E58521F6397400DD1007 /* DownloadStatusView+ClassMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58421F6397400DD1007 /* DownloadStatusView+ClassMethods.swift */; };
 		A1A1E58721F6882600DD1007 /* DownloadStatusView+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58621F6882600DD1007 /* DownloadStatusView+Protocol.swift */; };
 		A1A1E58921F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58821F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift */; };
+		A1A1E58B21F6965700DD1007 /* DownloadStatusView+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58A21F6965700DD1007 /* DownloadStatusView+Status.swift */; };
+		A1A1E58D21F6969900DD1007 /* DownloadStatusView+StatusString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1E58C21F6969900DD1007 /* DownloadStatusView+StatusString.swift */; };
 		A1C279E321F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E221F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift */; };
 		A1C279E521F29E4A0014C546 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E421F29E4A0014C546 /* GalleryCollectionViewCell.swift */; };
 		A1C279E721F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */; };
@@ -60,6 +62,8 @@
 		A1A1E58421F6397400DD1007 /* DownloadStatusView+ClassMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadStatusView+ClassMethods.swift"; sourceTree = "<group>"; };
 		A1A1E58621F6882600DD1007 /* DownloadStatusView+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadStatusView+Protocol.swift"; sourceTree = "<group>"; };
 		A1A1E58821F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+DownloadStatusViewDelegate.swift"; sourceTree = "<group>"; };
+		A1A1E58A21F6965700DD1007 /* DownloadStatusView+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadStatusView+Status.swift"; sourceTree = "<group>"; };
+		A1A1E58C21F6969900DD1007 /* DownloadStatusView+StatusString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DownloadStatusView+StatusString.swift"; sourceTree = "<group>"; };
 		A1C279E221F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		A1C279E421F29E4A0014C546 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewController+NSFetchedResultsControllerDelegate.swift"; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 				A12C17F321F6232C003AA821 /* DownloadStatusView.swift */,
 				A1A1E58421F6397400DD1007 /* DownloadStatusView+ClassMethods.swift */,
 				A1A1E58621F6882600DD1007 /* DownloadStatusView+Protocol.swift */,
+				A1A1E58A21F6965700DD1007 /* DownloadStatusView+Status.swift */,
+				A1A1E58C21F6969900DD1007 /* DownloadStatusView+StatusString.swift */,
 				A12C17F621F624D4003AA821 /* DownloadStatusView.xib */,
 			);
 			path = DownloadStatusView;
@@ -286,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1A1E58B21F6965700DD1007 /* DownloadStatusView+Status.swift in Sources */,
 				A152544F21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld in Sources */,
 				A1F2B98921E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift in Sources */,
 				AA69B73C21F3A10800A745EF /* GalleryViewController+Editing.swift in Sources */,
@@ -297,6 +304,7 @@
 				A1F2B98321E45C7300F5CB68 /* MapViewController.swift in Sources */,
 				A152543E21EBBFD800BACC40 /* Client+Flickr.swift in Sources */,
 				A152544321EBFACA00BACC40 /* FlickrPhotos.swift in Sources */,
+				A1A1E58D21F6969900DD1007 /* DownloadStatusView+StatusString.swift in Sources */,
 				A149073521EBB28800AB297C /* Client.swift in Sources */,
 				A12C17EE21F556D3003AA821 /* Client+TypeAlias.swift in Sources */,
 				A12C17F021F574FE003AA821 /* Location.swift in Sources */,

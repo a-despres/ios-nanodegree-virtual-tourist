@@ -15,7 +15,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if statusView.isVisible { statusView.hide() }
+        if statusView.isVisible { statusView.setVisible(false, animated: false) }
         
         switch isEditingMap {
         case false:

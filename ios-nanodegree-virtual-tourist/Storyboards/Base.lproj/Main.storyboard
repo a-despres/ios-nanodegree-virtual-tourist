@@ -43,6 +43,13 @@
                                         <color key="value" red="0.87450980392156863" green="0.89411764705882346" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="image" keyPath="activeButtonIcon" value="baseline_explore_white_36pt"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="disabledColor">
+                                        <color key="value" red="0.87450980389999999" green="0.89411764709999997" blue="0.91764705879999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="enabledColor">
+                                        <color key="value" red="0.027450980390000001" green="0.59999999999999998" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="enbabledIcon" value="baseline_explore_white_36pt"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSt-Eu-HAj">

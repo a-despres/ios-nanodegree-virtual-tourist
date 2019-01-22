@@ -10,62 +10,49 @@ import UIKit
 
 // MARK: - Class Methods
 extension DownloadStatusView {
-    func hide() {
-        setVisible(false, animated: true)
+    
+    // MARK: - Public Class Methods
+    
+    /**
+     A method used to setup the Download Status View to a specified state.
+     - parameter state: The state of the view.
+     - parameter isVisible: The visibility of the view.
+     - parameter isAnimated: Animate the state of the view.
+     */
+    func view(to state: Status, isVisible: Bool, isAnimated: Bool) {
+        setVisible(isVisible, animated: isAnimated)
+        setStatus(state, animated: isAnimated)
     }
     
-    func show() {
-        setVisible(true, animated: true)
-    }
-    
+    /**
+     Set the location text of the Download Status View.
+     - parameter name: The name of the location to display.
+     */
     func setLocationName(_ name: String?) {
         location.text = name
     }
     
-    func start() {
-        setStatus(.on, animated: true)
-    }
-    
-    func stop() {
-        setStatus(.off, animated: true)
-    }
-    
-    func toggleStatus() {
-        switch isVisible {
-        case true: hide()
-        case false: show()
-        }
-    }
-    
-    func updateCount(_ count: Int) {
-        status.text = StatusString.downloading(count, totalPhotos).stringValue
-    }
-    
-    // MARK: - Private Methods
-    private func setStatus(_ status: Status, animated: Bool) {
+    /**
+     Sets the status the Download Status View.
+     - parameter status: The state of the view.
+     - parameter animated: The boolean value indicating if changes to the view should animate or display instantly.
+     */
+    func setStatus(_ status: Status, animated: Bool) {
         switch status {
-        case .on:
-            self.activityIndicator.startAnimating()
-            self.button.backgroundColor = buttonOnColor
-            self.button.setImage(inactiveButtonIcon, for: .disabled)
-            self.button.isEnabled = false
-            self.buttonWidthConstraint.constant = button.frame.height
-            self.locationVerticalConstraint.constant = -8
-            self.isActive = true
-            self.status.text = StatusString.preparing.stringValue
-            self.status.alpha = 1
-            self.statusVerticalConstraint.constant = 8
+        case .complete:
+            activityIndicator.stopAnimating()
+            setupButton(backgroundColor: enabledColor, icon: enbabledIcon, state: .normal, isEnabled: true, width: enabledWidth)
+            setupLocationText(verticalOffset: 0)
+            setupStatusText(alpha: 0, verticalOffset: 16)
+        
+        case .downloading:
+            break // nothing special happens at this point
             
-        case .off:
-            self.activityIndicator.stopAnimating()
-            self.button.backgroundColor = buttonOffColor
-            self.button.setImage(activeButtonIcon, for: .normal)
-            self.button.isEnabled = true
-            self.buttonWidthConstraint.constant = activeButtonWidth
-            self.locationVerticalConstraint.constant = 0
-            self.isActive = false
-            self.status.alpha = 0
-            self.statusVerticalConstraint.constant = 16
+        case .preparing:
+            activityIndicator.startAnimating()
+            setupButton(backgroundColor: disabledColor, icon: disabledIcon, state: .disabled, isEnabled: false, width: button.frame.height)
+            setupLocationText(verticalOffset: -8)
+            setupStatusText(StatusString.preparing.stringValue, alpha: 1, verticalOffset: 8)
         }
         
         if animated {
@@ -73,22 +60,80 @@ extension DownloadStatusView {
         }
     }
     
-    private func setVisible(_ visible: Bool, animated: Bool) {
+    /**
+     Set the visibility of the Download Status View.
+     - parameter visible: The boolean value indicating if the view is visible or not.
+     - parameter animated: The boolean value indicating if the visibility of the view should be animated or instant.
+     */
+    func setVisible(_ visible: Bool, animated: Bool) {
         let duration = animated ? 0.3 : 0
         
-        UIView.animate(withDuration: duration) {
-            switch visible {
-            case false:
-                self.isVisible = false
-                self.frame.origin.y += 96
-                self.alpha = 0
-            case true:
-                self.isVisible = true
-                self.frame.origin.y -= 96
-                self.alpha = 1
-            }
-            
-            self.layoutIfNeeded()
+        switch visible {
+        case false: UIView.animate(withDuration: duration, animations: hideViewAnimations)
+        case true: UIView.animate(withDuration: duration, animations: showViewAnimations)
         }
+    }
+    
+    /**
+     Update the download count value of the status text.
+     - parameter count: The value to be displayed in the status text.
+     */
+    func updateCount(_ count: Int) {
+        status.text = StatusString.downloading(count, total).stringValue
+    }
+    
+    // MARK: - Private Class Methods
+    
+    /**
+     Set the appearance of the download status button.
+     - parameter color: The color of the button.
+     - parameter icon: The icon displayed on the button.
+     - parameter state: The control state of the button.
+     - parameter isEnabled: The boolean value indicating if the button is enabled or disabled.
+     - parameter width: The width of the button.
+     */
+    private func setupButton(backgroundColor color: UIColor, icon: UIImage, state: UIControl.State, isEnabled: Bool, width: CGFloat) {
+        button.backgroundColor = color
+        button.setImage(icon, for: state)
+        button.isEnabled = isEnabled
+        buttonWidthConstraint.constant = width
+    }
+    
+    /**
+     Set the appearance of the location text.
+     - parameter verticalOffset: The vertical offset of the location text.
+     */
+    private func setupLocationText(verticalOffset: CGFloat) {
+        locationVerticalConstraint.constant = verticalOffset
+    }
+    
+    /**
+     Set the appearance of the download status text.
+     - parameter text: The text value of the status text. (Optional)
+     - parameter alpha: The alpha of the status text.
+     - parameter verticalOffset: The vertical offset of the status text.
+     */
+    private func setupStatusText(_ text: String? = nil, alpha: CGFloat, verticalOffset: CGFloat) {
+        if let text = text { status.text = text }
+        status.alpha = alpha
+        statusVerticalConstraint.constant = verticalOffset
+    }
+    
+    // MARK: - UI Animations
+    
+    /// Hides the Download Status View by sliding the view down and fading out.
+    private func hideViewAnimations() {
+        setVisible(false)
+        frame.origin.y += 96
+        alpha = 0
+        layoutIfNeeded()
+    }
+    
+    /// Shows thew Download Status View by sliding the view up and fading in.
+    private func showViewAnimations() {
+        setVisible(true)
+        frame.origin.y -= 96
+        alpha = 1
+        layoutIfNeeded()
     }
 }

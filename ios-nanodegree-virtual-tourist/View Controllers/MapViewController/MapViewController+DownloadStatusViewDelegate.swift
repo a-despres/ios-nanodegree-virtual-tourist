@@ -6,11 +6,11 @@
 //  Copyright © 2019 Andrew Despres. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension MapViewController: DownloadStatusViewDelegate {
-    func buttonPressed() {
-        statusView.hide()
+    func downloadStatusView(_ downloadStatusView: DownloadStatusView, buttonTapped button: UIButton) {
+        statusView.setVisible(false, animated: false)
         performSegue(withIdentifier: "showGallery", sender: newPin)
     }
 }

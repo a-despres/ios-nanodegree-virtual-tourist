@@ -14,56 +14,24 @@ class DownloadStatusView: UIView {
     // MARK: Delegate
     var delegate: DownloadStatusViewDelegate?
     
-    // MARK: - Properties
+    // MARK: - Constants
     private let xibName = "DownloadStatusView"
-    let activeButtonWidth: CGFloat = 112
     
-    private var colorOn: UIColor = UIColor.blue
-    private var colorOff: UIColor = UIColor.lightGray
+    // MARK: - Public Properties
+    public private(set) var isVisible: Bool = true
+    public private(set) var total: Int = 0
     
-    var iconActive: UIImage = UIImage()
-    var iconInactive: UIImage = UIImage()
+    // MARK: - Private Properties
+    private var colorDisabled: UIColor = UIColor.lightGray
+    private var colorEnabled: UIColor = UIColor.blue
     
-    var isActive: Bool = true
-    var isVisible: Bool = true
+    private var iconDisabled: UIImage = UIImage()
+    private var iconEnabled: UIImage = UIImage()
     
-    var totalPhotos: Int = 0
-    
-    enum Status {
-        case on, off
-    }
-    
-    enum StatusString {
-        case preparing
-        case downloading(Int, Int)
-        
-        var stringValue: String {
-            switch self {
-            case .preparing: return "Retrieving Gallery Information"
-            case .downloading(let current, let total): return "\(current) of \(total) Photos Downloaded"
-            }
-        }
-    }
+    private var widthDisabled: CGFloat = 56
+    private var widthEnabled: CGFloat = 112
     
     // MARK: - IBInspectable Properties
-    @IBInspectable var buttonOffColor: UIColor {
-        get { return colorOff }
-        set { colorOff = newValue }
-    }
-    @IBInspectable var buttonOnColor: UIColor {
-        get { return colorOn }
-        set { colorOn = newValue }
-    }
-    
-    @IBInspectable var activeButtonIcon: UIImage {
-        get { return iconActive }
-        set { iconActive = newValue }
-    }
-    @IBInspectable var inactiveButtonIcon: UIImage {
-        get { return iconInactive }
-        set { iconInactive = newValue }
-    }
-    
     @IBInspectable var cornerRadius: CGFloat {
         get { return layer.cornerRadius }
         set {
@@ -76,9 +44,35 @@ class DownloadStatusView: UIView {
             button.layer.masksToBounds = newValue > 0
         }
     }
-    @IBInspectable var defaultText: String {
-        get { return status.text! }
-        set { status.text = newValue }
+    
+    @IBInspectable var disabledColor: UIColor {
+        get { return colorDisabled }
+        set { colorDisabled = newValue }
+    }
+    
+    @IBInspectable var disabledIcon: UIImage {
+        get { return iconDisabled }
+        set { iconDisabled = newValue }
+    }
+    
+    @IBInspectable var disabledWidth: CGFloat {
+        get { return widthDisabled }
+        set { widthDisabled = newValue }
+    }
+    
+    @IBInspectable var enabledColor: UIColor {
+        get { return colorEnabled }
+        set { colorEnabled = newValue }
+    }
+    
+    @IBInspectable var enbabledIcon: UIImage {
+        get { return iconEnabled }
+        set { iconEnabled = newValue }
+    }
+    
+    @IBInspectable var enabledWidth: CGFloat {
+        get { return widthEnabled }
+        set { widthEnabled = newValue }
     }
 
     // MARK: - IBOutlets
@@ -94,7 +88,7 @@ class DownloadStatusView: UIView {
     
     // MARK: - IBActions
     @IBAction func buttonTapped(_ sender: UIButton) {
-        delegate?.buttonPressed()
+        delegate?.downloadStatusView(self, buttonTapped: sender)
     }
     
     // MARK: - Initialization
@@ -112,6 +106,24 @@ class DownloadStatusView: UIView {
         let bundle = Bundle(for: DownloadStatusView.self)
         bundle.loadNibNamed(xibName, owner: self, options: nil)
         contentView.setupXibInView(self)
+    }
+    
+    // MARK: - Property Setters
+    
+    /**
+     Set the total number of photos to be downloaded.
+     - parameter total: The total number of photos to be downloaded.
+     */
+    func setTotal(_ total: Int) {
+        self.total = total
+    }
+    
+    /**
+     Set the visibility of the view.
+     - parameter visibile: The boolean value indicating where or not the view should be visible.
+     */
+    func setVisible(_ visible: Bool) {
+        isVisible = visible
     }
 }
 

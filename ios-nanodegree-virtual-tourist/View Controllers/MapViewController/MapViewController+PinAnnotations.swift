@@ -65,8 +65,8 @@ extension MapViewController {
                 
                 // show download status modal
                 self.statusView.setLocationName(pin.title)
-                self.statusView.show()
-                self.statusView.start()
+                self.statusView.setVisible(true, animated: true)
+                self.statusView.setStatus(.preparing, animated: true)
                 
                 // Download image data
                 Client.downloadMetadata(for: pin.coordinate.toLocation(), completion: self.handleDownloadMetadata(metadata:error:))
@@ -151,7 +151,7 @@ extension MapViewController {
         let count = pin.photos!.count
         var downloadCount = 0
         
-        statusView.totalPhotos = count
+        statusView.setTotal(count)
         
         for case let photo as Photo in pin.photos! {
             if let url = URL(string: photo.url!) {
@@ -165,7 +165,7 @@ extension MapViewController {
                         
                         if downloadCount == count {
                             DispatchQueue.main.async {
-                                self.statusView.stop()
+                                self.statusView.setStatus(.complete, animated: true)
                                 self.newPin = pin
                             }
                         }
