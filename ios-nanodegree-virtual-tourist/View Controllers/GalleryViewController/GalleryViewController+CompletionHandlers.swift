@@ -48,11 +48,8 @@ extension GalleryViewController {
             // TODO: Handle Error
             print("Error: Cound not delete photo")
             
-        case true:
-            guard let latitude = Double(pin.latitude!) else { return }
-            guard let longitude = Double(pin.longitude!) else { return }
-            
-            let location = Location(latitude: latitude, longitude: longitude)
+        case true:            
+            let location = Location(latitude: pin.latitude, longitude: pin.longitude)
             Client.downloadMetadata(for: location, completion: handleDownloadMetadata(metadata:error:))
         }
     }

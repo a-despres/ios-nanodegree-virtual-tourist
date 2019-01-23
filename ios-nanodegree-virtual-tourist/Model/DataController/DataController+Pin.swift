@@ -20,8 +20,8 @@ extension DataController {
      */
     class func add(pin: MKPointAnnotation, from map: MKMapView, completion: @escaping AddPinHandler) {
         let pinToAdd = Pin(context: shared.viewContext)
-        pinToAdd.latitude = "\(pin.coordinate.latitude)"
-        pinToAdd.longitude = "\(pin.coordinate.longitude)"
+        pinToAdd.latitude = Double(pin.coordinate.latitude)
+        pinToAdd.longitude = Double(pin.coordinate.longitude)
         
         save { success in
             switch success {

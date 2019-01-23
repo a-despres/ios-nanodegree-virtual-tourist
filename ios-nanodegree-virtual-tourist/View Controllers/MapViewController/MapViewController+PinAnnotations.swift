@@ -66,9 +66,7 @@ extension MapViewController {
     func place(pins: [Pin], on map: MKMapView) {
         for pin in pins {
             let annotation = MKPointAnnotation()
-            let latitude = Double(pin.latitude!)!
-            let longitude = Double(pin.longitude!)!
-            annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
             map.addAnnotation(annotation)
         }
     }
@@ -177,6 +175,9 @@ extension MapViewController {
         
         else if let metadata = metadata {
             guard let pin = DataController.fetchPin(with: metadata.location) else { return }
+            pin.name = statusView.location.text
+            pin.totalPages = Int16(metadata.response.photos.pages)
+            
             let photos = metadata.response.photos.photos
             
             // parse metadata and add to Core Data

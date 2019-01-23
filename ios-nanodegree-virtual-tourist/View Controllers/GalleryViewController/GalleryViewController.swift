@@ -54,14 +54,10 @@ class GalleryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-                
-        // get pins latitude and longitude
-        guard let latitude = Double(pin.latitude!) else { return }
-        guard let longitude = Double(pin.longitude!) else { return }
         
         // create point annotation
         let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
         
         // center map on pin
         mapView.addAnnotation(annotation)
