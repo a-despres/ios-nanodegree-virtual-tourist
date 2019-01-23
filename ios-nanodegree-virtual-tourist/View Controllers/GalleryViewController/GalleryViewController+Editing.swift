@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK: - Editing
+// MARK: Gallery View Controller - Editing
 extension GalleryViewController {
     
     /// Manages the UI to depict the current editing state.
@@ -37,6 +37,7 @@ extension GalleryViewController {
         }
     }
     
+    /// Toggles the enabled state of the update button.
     func toggleUpdateButton() {
         switch photosToDelete.count {
         case 0: updateButton.isEnabled = false

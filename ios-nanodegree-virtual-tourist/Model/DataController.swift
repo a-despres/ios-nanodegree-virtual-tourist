@@ -15,6 +15,11 @@ class DataController {
     let persistentContainer: NSPersistentContainer
     var viewContext: NSManagedObjectContext { return persistentContainer.viewContext }
     
+    var fetchedResultsController: NSFetchedResultsController<Photo>!
+    var indexPathsToDelete = [IndexPath]()
+    var indexPathsToInsert = [IndexPath]()
+    var indexPathsToUpdate = [IndexPath]()
+    
     // MARK: - Shared Instance
     static var shared = DataController()
     
@@ -76,6 +81,24 @@ class DataController {
         }
         
         completion(true)
+    }
+    
+    class func fetchPhotos(for pin: Pin, using viewController: GalleryViewController, completion: @escaping (_ success: Bool) -> Void) {
+        let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "pin == %@", pin)
+        fetchRequest.sortDescriptors = []
+        
+        shared.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        shared.fetchedResultsController.delegate = viewController
+        
+        do {
+            try shared.fetchedResultsController.performFetch()
+            completion(true)
+        } catch {
+            // TODO: Handle Error
+            print("Error:", error)
+            completion(false)
+        }
     }
     
     

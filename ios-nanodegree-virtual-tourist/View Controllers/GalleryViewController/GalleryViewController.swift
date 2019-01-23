@@ -8,9 +8,14 @@
 
 import UIKit
 import MapKit
-import CoreData
 
+// MARK: Gallery View Controller
 class GalleryViewController: UIViewController {
+    
+    // MARK: - Properties
+    var isEditingGallery = false
+    var photosToDelete = [Photo]()
+    var pin: Pin!
     
     // MARK: - IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -20,19 +25,6 @@ class GalleryViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var updateButton: UIButton!
     
-    // MARK: - Properties
-    var favoriteFilled = UIImage(named: "outline_favorite_black_24pt")
-    var favoriteOutline = UIImage(named: "outline_favorite_border_black_24pt")
-    
-    var fetchedResultsController: NSFetchedResultsController<Photo>!
-    var indexPathsToDelete = [IndexPath]()
-    var indexPathsToInsert = [IndexPath]()
-    var indexPathsToUpdate = [IndexPath]()
-    
-    var isEditingGallery = false
-    var photosToDelete = [Photo]()
-    var pin: Pin!
-    
     // MARK: - IBActions
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         toggleEditingState()
@@ -40,51 +32,24 @@ class GalleryViewController: UIViewController {
     
     @IBAction func updateButtonTapped(_ sender: UIButton) {
         for photo in photosToDelete {
-            DataController.delete(photo: photo) { [unowned self] success in
-                switch success {
-                case false: print("error") // TODO: add proper error handling
-                case true:
-                    self.photosToDelete = [Photo]()
-                    self.toggleUpdateButton()
-                }
-            }
+            DataController.delete(photo: photo, completion: handleDeletePhoto(success:))
         }
     }
     
     @IBAction func newGalleryTapped(_ sender: UIButton) {
-        guard let photos = fetchedResultsController.fetchedObjects else { return }
-        guard let latitude = Double(pin.latitude!) else { return }
-        guard let longitude = Double(pin.longitude!) else { return }
-        
-        // remove all existing photos
-        DataController.delete(photos: photos) { success in
-            // download new photo set
-            let location = Location(latitude: latitude, longitude: longitude)
-            Client.downloadMetadata(for: location, completion: { (metadata, error) in
-                
-            })
-        }
+        guard let photos = DataController.shared.fetchedResultsController.fetchedObjects else { return }
+        DataController.delete(photos: photos, completion: handleDeletePhotos(success:))
     }
     
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Move edit pane off screen
+        // move edit pane off screen
         toggleEditPane(animated: false)
         
-        let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "pin == %@", pin)
-        fetchRequest.sortDescriptors = []
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: DataController.shared.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
-        
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print(error)
-        }
+        // fetch the photos for the gallery
+        DataController.fetchPhotos(for: pin, using: self, completion: handleFetchPhotos(success:))
     }
     
     override func viewWillAppear(_ animated: Bool) {

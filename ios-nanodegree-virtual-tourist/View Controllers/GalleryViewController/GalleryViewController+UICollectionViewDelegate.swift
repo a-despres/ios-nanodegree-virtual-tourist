@@ -8,52 +8,31 @@
 
 import UIKit
 
+// MARK: Gallery View Controller - UICollectionView Delegate
 extension GalleryViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchedResultsController.fetchedObjects?.count ?? 0
+        return DataController.shared.fetchedResultsController.fetchedObjects?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! GalleryCollectionViewCell
-
-        switch isEditingGallery {
-        case false: cell.favoriteIcon.isHidden = true
-        case true: cell.favoriteIcon.isHidden = false
-        }
-        
-        cell.photo.image = UIImage()
-        cell.activityIndicator.startAnimating()
+        cell.setFavoriteIconVisibility(isEditingGallery)
+        cell.displayPlaceholder()
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as! GalleryCollectionViewCell
-        let photoData = fetchedResultsController.object(at: indexPath).data!
+        let photoData = DataController.shared.fetchedResultsController.object(at: indexPath).data!
         
-        // hide activity indicator
-        if photoData.count > 0 {
-            cell.activityIndicator.stopAnimating()
-            cell.photo.image = UIImage(data: photoData)
-            cell.photo.contentMode = .scaleAspectFill
-        } else {
-            let photo = fetchedResultsController.object(at: indexPath)
-            if let url = URL(string: photo.url!) {
-                Client.downloadPhoto(from: url, for: photo, in: pin) { (associated: (photo: Photo, pin: Pin), response: (data: Data?, success: Bool), error: Error?) in
-                    if response.success { photo.data = response.data }
-                }
-            }
-        }
-        
-        // customize how the favorite icon is displayed
-        cell.favoriteIcon.image = cell.favoriteIcon.image?.withRenderingMode(.alwaysTemplate)
-        cell.favoriteIcon.tintColor = UIColor(red: 1, green: 71/255, blue: 87/255, alpha: 1)
+        // hide activity indicator and show image, otherwise download image data
+        if photoData.count > 0 { cell.displayPhoto(data: photoData) }
+        else { downloadPhoto(for: indexPath) }
 
         // display the appropriate favorite icon
-        if indexPathsToDelete.contains(indexPath) {
-            cell.favoriteIcon.image = UIImage(named: "outline_favorite_border_black_24pt")
-        } else {
-            cell.favoriteIcon.image = UIImage(named: "outline_favorite_black_24pt")
-        }
+        if DataController.shared.indexPathsToDelete.contains(indexPath) { cell.setFavoriteIconState(.readyToDelete) }
+        else { cell.setFavoriteIconState(.normal) }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -72,22 +51,35 @@ extension GalleryViewController: UICollectionViewDelegateFlowLayout, UICollectio
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if isEditingGallery {
             let cell = collectionView.cellForItem(at: indexPath) as! GalleryCollectionViewCell
-            let photo = fetchedResultsController.object(at: indexPath)
+            let photo = DataController.shared.fetchedResultsController.object(at: indexPath)
             
-            switch cell.favoriteIcon.image {
-            case favoriteFilled: cell.favoriteIcon.image = favoriteOutline
-            case favoriteOutline: cell.favoriteIcon.image = favoriteFilled
-            default: break
-            }
+            cell.toggleFavoriteIcon()
             
             switch photosToDelete.contains(photo) {
-            case false: photosToDelete.append(photo)
+            case false:
+                photosToDelete.append(photo)
+                
             case true:
                 let index = photosToDelete.firstIndex(of: photo)!
                 photosToDelete.remove(at: index)
             }
             
             toggleUpdateButton()
+        }
+    }
+}
+
+// MARK: - Helper Functions
+extension GalleryViewController {
+    
+    /**
+     Download the photo for the given IndexPath.
+     - parameter indexPath: The IndexPath of the specified cell and Photo object.
+     */
+    func downloadPhoto(for indexPath: IndexPath) {
+        let photo = DataController.shared.fetchedResultsController.object(at: indexPath)
+        if let url = URL(string: photo.url!) {
+            Client.downloadPhoto(from: url, for: photo, in: pin, completion: handleDownloadPhoto(associated:response:error:))
         }
     }
 }
