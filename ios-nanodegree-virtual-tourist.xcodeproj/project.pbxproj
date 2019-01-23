@@ -35,6 +35,10 @@
 		A1C279E721F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */; };
 		A1EA9BD521F7EA0F00DE4D8D /* GalleryCollectionViewCell+FavoriteIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA9BD421F7EA0F00DE4D8D /* GalleryCollectionViewCell+FavoriteIcon.swift */; };
 		A1EA9BD721F8129800DE4D8D /* GalleryCollectionViewCell+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA9BD621F8129800DE4D8D /* GalleryCollectionViewCell+Photo.swift */; };
+		A1EA9BD921F8172D00DE4D8D /* DataController+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA9BD821F8172D00DE4D8D /* DataController+IO.swift */; };
+		A1EA9BDC21F817C500DE4D8D /* DataController+TypeAlias.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA9BDB21F817C500DE4D8D /* DataController+TypeAlias.swift */; };
+		A1EA9BDE21F8193400DE4D8D /* DataController+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA9BDD21F8193400DE4D8D /* DataController+Photo.swift */; };
+		A1EA9BE021F8199300DE4D8D /* DataController+Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA9BDF21F8199300DE4D8D /* DataController+Pin.swift */; };
 		A1F2B96F21E45A6700F5CB68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B96E21E45A6700F5CB68 /* AppDelegate.swift */; };
 		A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2B97021E45A6700F5CB68 /* GalleryViewController.swift */; };
 		A1F2B97421E45A6700F5CB68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1F2B97221E45A6700F5CB68 /* Main.storyboard */; };
@@ -75,6 +79,10 @@
 		A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewController+NSFetchedResultsControllerDelegate.swift"; sourceTree = "<group>"; };
 		A1EA9BD421F7EA0F00DE4D8D /* GalleryCollectionViewCell+FavoriteIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryCollectionViewCell+FavoriteIcon.swift"; sourceTree = "<group>"; };
 		A1EA9BD621F8129800DE4D8D /* GalleryCollectionViewCell+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryCollectionViewCell+Photo.swift"; sourceTree = "<group>"; };
+		A1EA9BD821F8172D00DE4D8D /* DataController+IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataController+IO.swift"; sourceTree = "<group>"; };
+		A1EA9BDB21F817C500DE4D8D /* DataController+TypeAlias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataController+TypeAlias.swift"; sourceTree = "<group>"; };
+		A1EA9BDD21F8193400DE4D8D /* DataController+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataController+Photo.swift"; sourceTree = "<group>"; };
+		A1EA9BDF21F8199300DE4D8D /* DataController+Pin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataController+Pin.swift"; sourceTree = "<group>"; };
 		A1F2B96B21E45A6700F5CB68 /* ios-nanodegree-virtual-tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-nanodegree-virtual-tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1F2B96E21E45A6700F5CB68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1F2B97021E45A6700F5CB68 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
@@ -148,8 +156,8 @@
 		A152545021EC0C8B00BACC40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A1EA9BDA21F8173400DE4D8D /* DataController */,
 				A152544D21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld */,
-				A152545121EC0E1000BACC40 /* DataController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -162,6 +170,18 @@
 				A1EA9BD621F8129800DE4D8D /* GalleryCollectionViewCell+Photo.swift */,
 			);
 			path = GalleryCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		A1EA9BDA21F8173400DE4D8D /* DataController */ = {
+			isa = PBXGroup;
+			children = (
+				A152545121EC0E1000BACC40 /* DataController.swift */,
+				A1EA9BD821F8172D00DE4D8D /* DataController+IO.swift */,
+				A1EA9BDD21F8193400DE4D8D /* DataController+Photo.swift */,
+				A1EA9BDF21F8199300DE4D8D /* DataController+Pin.swift */,
+				A1EA9BDB21F817C500DE4D8D /* DataController+TypeAlias.swift */,
+			);
+			path = DataController;
 			sourceTree = "<group>";
 		};
 		A1F2B96221E45A6700F5CB68 = {
@@ -316,6 +336,7 @@
 				A152544F21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld in Sources */,
 				A1F2B98921E4659800F5CB68 /* MapViewController+MKMapViewDelegate.swift in Sources */,
 				AA69B73C21F3A10800A745EF /* GalleryViewController+Editing.swift in Sources */,
+				A1EA9BDE21F8193400DE4D8D /* DataController+Photo.swift in Sources */,
 				A1A1E58921F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift in Sources */,
 				A1F2B98B21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift in Sources */,
 				A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */,
@@ -335,10 +356,13 @@
 				A152544521EBFE2B00BACC40 /* SearchResponse.swift in Sources */,
 				A1A1E58521F6397400DD1007 /* DownloadStatusView+ClassMethods.swift in Sources */,
 				A152545221EC0E1000BACC40 /* DataController.swift in Sources */,
+				A1EA9BE021F8199300DE4D8D /* DataController+Pin.swift in Sources */,
+				A1EA9BD921F8172D00DE4D8D /* DataController+IO.swift in Sources */,
 				A12C17F221F576EF003AA821 /* CLLocation+Extension.swift in Sources */,
 				A12C17F421F6232C003AA821 /* DownloadStatusView.swift in Sources */,
 				A1486D5E21E5B5DE0046BE8E /* MapViewController+Editing.swift in Sources */,
 				A152544021EBFA4600BACC40 /* FlickrPhoto.swift in Sources */,
+				A1EA9BDC21F817C500DE4D8D /* DataController+TypeAlias.swift in Sources */,
 				A149073921EBB3CD00AB297C /* Client+Auth.swift in Sources */,
 				A157E08821F6D0EE008286A3 /* MapViewController+TypeAlias.swift in Sources */,
 				A1C279E721F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift in Sources */,
