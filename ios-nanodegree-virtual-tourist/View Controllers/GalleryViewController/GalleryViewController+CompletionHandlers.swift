@@ -70,12 +70,14 @@ extension GalleryViewController {
             
             // parse metadata and add to Core Data
             for photo in photos {
-                let photoToAdd = Photo(context: DataController.shared.viewContext)
-                photoToAdd.data = Data() // The photo data will be downloaded when the Photo object is displayed in the cell
-                photoToAdd.title = photo.title
-                photoToAdd.url = photo.url
-                
-                DataController.add(photo: photoToAdd, to: pin, completion: handleAddPhoto(photo:pin:success:))
+                if let url = photo.url {
+                    let photoToAdd = Photo(context: DataController.shared.viewContext)
+                    photoToAdd.data = Data() // The photo data will be downloaded when the Photo object is displayed in the cell
+                    photoToAdd.title = photo.title
+                    photoToAdd.url = url
+                    
+                    DataController.add(photo: photoToAdd, to: pin, completion: handleAddPhoto(photo:pin:success:))
+                }
             }
         }
     }

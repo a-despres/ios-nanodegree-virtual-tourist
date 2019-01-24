@@ -10,7 +10,7 @@ import Foundation
 
 struct FlickrPhoto: Codable {
     let title: String
-    let url: String
+    let url: String?
     
     enum CodingKeys: String, CodingKey {
         case title

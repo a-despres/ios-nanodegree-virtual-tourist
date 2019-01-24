@@ -136,7 +136,12 @@ extension MapViewController {
         
         // Iterate through the photo URLs and download the data
         for case let photo as Photo in pin.photos! {
-            if let url = URL(string: photo.url!) {
+            guard let urlString = photo.url else {
+                print("error!")
+                return
+            }
+            
+            if let url = URL(string: urlString) {
                 Client.downloadPhoto(from: url, for: photo, in: pin, completion: handleDownloadPhoto(associated:response:error:))
             } else {
                 // TODO: Handle Error
@@ -182,12 +187,14 @@ extension MapViewController {
             
             // parse metadata and add to Core Data
             for photo in photos {
-                let photoToAdd = Photo(context: DataController.shared.viewContext)
-                photoToAdd.data = Data()
-                photoToAdd.title = photo.title
-                photoToAdd.url = photo.url
-
-                DataController.add(photo: photoToAdd, to: pin, completion: handleAddPhoto(photo:pin:success:))
+                if let url = photo.url {
+                    let photoToAdd = Photo(context: DataController.shared.viewContext)
+                    photoToAdd.data = Data()
+                    photoToAdd.title = photo.title
+                    photoToAdd.url = url
+                    
+                    DataController.add(photo: photoToAdd, to: pin, completion: handleAddPhoto(photo:pin:success:))
+                }
             }
             
             // download images
