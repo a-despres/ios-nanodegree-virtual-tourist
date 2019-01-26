@@ -12,6 +12,7 @@ extension DownloadStatusView {
     enum Status {
         case complete
         case downloading
+        case noPhotos
         case preparing
     }
 }

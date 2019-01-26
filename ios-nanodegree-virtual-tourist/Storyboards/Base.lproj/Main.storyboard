@@ -50,6 +50,9 @@
                                         <color key="value" red="0.027450980390000001" green="0.59999999999999998" blue="0.57254901960000004" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="image" keyPath="enbabledIcon" value="baseline_explore_white_36pt"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="errorColor">
+                                        <color key="value" red="0.83622461560000005" green="0.34192582960000001" blue="0.27054196600000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSt-Eu-HAj">

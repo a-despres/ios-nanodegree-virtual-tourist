@@ -16,6 +16,7 @@ class MapViewController: UIViewController {
     var activePin: MKPointAnnotation!
     var isEditingMap: Bool = false
     var newPin: Pin!
+    var newAnnotation: MKPointAnnotation!
     var pins: [Pin] = [Pin]()
     
     // MARK: - IBOutlets

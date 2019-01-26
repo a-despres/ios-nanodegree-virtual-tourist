@@ -25,6 +25,7 @@ class DownloadStatusView: UIView {
     // MARK: - Private Properties
     private var colorDisabled: UIColor = UIColor.lightGray
     private var colorEnabled: UIColor = UIColor.blue
+    private var colorError: UIColor = UIColor.red
     
     private var iconDisabled: UIImage = UIImage()
     private var iconEnabled: UIImage = UIImage()
@@ -74,6 +75,11 @@ class DownloadStatusView: UIView {
     @IBInspectable var enabledWidth: CGFloat {
         get { return widthEnabled }
         set { widthEnabled = newValue }
+    }
+    
+    @IBInspectable var errorColor: UIColor {
+        get { return colorError }
+        set { colorError = newValue }
     }
 
     // MARK: - IBOutlets

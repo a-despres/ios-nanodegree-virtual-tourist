@@ -48,6 +48,12 @@ extension DownloadStatusView {
         
         case .downloading:
             break // nothing special happens at this point
+        
+        case .noPhotos:
+            activityIndicator.stopAnimating()
+            setupButton(backgroundColor: errorColor, icon: enbabledIcon, state: .disabled, isEnabled: false, width: disabledWidth)
+            setupStatusText(StatusString.noPhotos.stringValue, alpha: 1, verticalOffset: 8)
+            dismiss(in: 1.5)
             
         case .preparing:
             activityIndicator.startAnimating()
@@ -115,6 +121,17 @@ extension DownloadStatusView {
         if let text = text { status.text = text }
         status.alpha = alpha
         statusVerticalConstraint.constant = verticalOffset
+    }
+    
+    /**
+     Dismisses the view after the specified time interval.
+     - parameter timeInterval: The time interval in which to wait before dismissing the view.
+     */
+    private func dismiss(in timeInterval: TimeInterval) {
+        Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { [weak self] (timer) in
+            self?.setVisible(false, animated: true)
+            timer.invalidate()
+        }
     }
     
     // MARK: - UI Animations

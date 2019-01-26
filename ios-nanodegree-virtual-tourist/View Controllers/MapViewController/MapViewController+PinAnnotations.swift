@@ -23,6 +23,7 @@ extension MapViewController {
      */
     func add(annotation: MKPointAnnotation, to map: MKMapView, at point: CGPoint) {
         annotation.coordinate = map.convert(point, toCoordinateFrom: map)
+        newAnnotation = annotation
         mapView.addAnnotation(annotation)
     }
     
@@ -130,6 +131,12 @@ extension MapViewController {
      - parameter pin: The `Pin` object the photos will be associated with after downloading.
      */
     func downloadPhotos(for pin: Pin) {
+        // Count Photos and Set No Photo Status if there are zero photos
+        if pin.photos?.count == 0 {
+            statusView.setStatus(.noPhotos, animated: false)
+            DataController.delete(pin: pin, with: newAnnotation, from: mapView, completion: handleDeletePin(annotation:map:success:))
+            return
+        }
         
         // Pass the total number of photos to the DownloadStatusView
         statusView.setTotal(pin.photos!.count)
