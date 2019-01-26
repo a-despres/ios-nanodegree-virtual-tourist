@@ -16,6 +16,7 @@
                 <outlet property="button" destination="7tw-qD-QKJ" id="5Vi-60-yl8"/>
                 <outlet property="buttonWidthConstraint" destination="gGT-vw-nsd" id="X6f-Dy-3GT"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="aIT-Gf-oyi"/>
+                <outlet property="gestureRecognizer" destination="16S-OT-yef" id="X7l-i3-0op"/>
                 <outlet property="location" destination="1S7-nS-ydw" id="nJI-zx-E6y"/>
                 <outlet property="locationVerticalConstraint" destination="3aw-kn-K4L" id="YQh-Fd-Dpo"/>
                 <outlet property="status" destination="1mH-Ez-eRC" id="THx-83-HQU"/>
@@ -65,6 +66,7 @@
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="1S7-nS-ydw" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" constant="-8" id="3aw-kn-K4L"/>
                 <constraint firstItem="cOV-6w-AzR" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="4xe-zB-nuT"/>
@@ -80,7 +82,15 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="16S-OT-yef" appends="YES" id="LSZ-jC-ahW"/>
+            </connections>
         </view>
+        <swipeGestureRecognizer delaysTouchesEnded="NO" direction="down" id="16S-OT-yef">
+            <connections>
+                <action selector="viewSwiped:" destination="-1" id="1z6-9s-cbJ"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
     <resources>
         <image name="baseline_explore_white_36pt" width="72" height="72"/>

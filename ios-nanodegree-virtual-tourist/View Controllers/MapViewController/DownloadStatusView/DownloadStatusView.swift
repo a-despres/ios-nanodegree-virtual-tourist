@@ -88,6 +88,7 @@ class DownloadStatusView: UIView {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var buttonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var gestureRecognizer: UISwipeGestureRecognizer!
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var locationVerticalConstraint: NSLayoutConstraint!
     @IBOutlet weak var status: UILabel!
@@ -96,6 +97,10 @@ class DownloadStatusView: UIView {
     // MARK: - IBActions
     @IBAction func buttonTapped(_ sender: UIButton) {
         delegate?.downloadStatusView(self, buttonTapped: sender)
+    }
+    
+    @IBAction func viewSwiped(_ sender: UISwipeGestureRecognizer) {
+        setVisible(false, animated: true)
     }
     
     // MARK: - Initialization
