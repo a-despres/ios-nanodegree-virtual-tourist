@@ -20,7 +20,7 @@ class DownloadStatusView: UIView {
     // MARK: - Public Properties
     public private(set) var downloaded: Int = 0
     public private(set) var isVisible: Bool = true
-    public private(set) var total: Int = 0
+    public private(set) var total: Int = 36
     
     // MARK: - Private Properties
     private var colorDisabled: UIColor = UIColor.lightGray
