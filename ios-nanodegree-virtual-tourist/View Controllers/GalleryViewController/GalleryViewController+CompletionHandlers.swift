@@ -50,7 +50,13 @@ extension GalleryViewController {
             
         case true:            
             let location = Location(latitude: pin.latitude, longitude: pin.longitude)
-            Client.downloadMetadata(for: location, completion: handleDownloadMetadata(metadata:error:))
+            var pageNumber = 1
+            
+            if pin.totalPages > 1 {
+                pageNumber = Int(arc4random_uniform(UInt32(pin!.totalPages))) + 1
+            }
+            
+            Client.downloadMetadata(for: location, with: pageNumber, completion: handleDownloadMetadata(metadata:error:))
         }
     }
     
@@ -66,6 +72,8 @@ extension GalleryViewController {
         }
         
         else if let metadata = metadata {
+            pin.totalPages = Int16(metadata.response.photos.pages)
+            
             let photos = metadata.response.photos.photos
             
             // parse metadata and add to Core Data

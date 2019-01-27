@@ -21,8 +21,7 @@ class Client {
      - parameter location: The `CLLocationCoordinate2D` to be used for downloading associated photos.
      - parameter completion: A closure which is called with optional metadata, and an optional error.
      */
-    class func downloadMetadata(for location: Location, completion: @escaping DownloadMetadataHandler) {
-        print("Downloading Metadata...\n")
+    class func downloadMetadata(for location: Location, with pageNumber: Int? = 1, completion: @escaping DownloadMetadataHandler) {
         
         // create URL from URL Components
         var components = URLComponents()
@@ -30,7 +29,7 @@ class Client {
         components.host = Flickr.host
         components.path = Flickr.path
         components.queryItems = [URLQueryItem]()
-        components.addQueryItems(queryItems(for: .search))
+        components.addQueryItems(queryItems(for: .search, with: pageNumber!))
         components.addQueryItems(queryItems(for: location))
         
         // download meta data for location
@@ -48,10 +47,6 @@ class Client {
                 // decode data
                 let response = try decoder.decode(SearchResponse.self, from: data)
                 let metadata: Metadata = (location: location, response: response)
-                
-                print("Current Page:", response.photos.page)
-                print("Total Page:", response.photos.pages)
-                print("Total Photos:", response.photos.total)
                                 
                 // send metadata back to view
                 DispatchQueue.main.async { completion(metadata, nil) }

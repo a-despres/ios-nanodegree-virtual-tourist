@@ -19,6 +19,7 @@ extension Client {
         
         // MARK: - Query Item Keys
         struct QueryKey {
+            static let accuracy = "accuracy"
             static let apiKey = "api_key"
             static let callback = "nojsoncallback"
             static let extras = "extras"
@@ -35,12 +36,13 @@ extension Client {
         
         // MARK: - Query Item Values
         struct QueryValue {
+            static let accuracy = "12"
             static var apiKey: String { return Auth.key }
             static let callback = "1"
             static let extras = "url_n"
             static let format = "json"
-            static var page: String = "1" // { return "\(Int(arc4random_uniform(100)) + 1)" } FIXME: random pages don't work properly
             static let perPage = "36"
+            static let radius = "1"
         }
         
         // MARK: - Flickr API Methods

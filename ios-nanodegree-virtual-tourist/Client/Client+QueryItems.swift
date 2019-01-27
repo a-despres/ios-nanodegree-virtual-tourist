@@ -15,15 +15,17 @@ extension Client {
      Return a dictionary of query keys and values for the Flickr API.
      - parameter method: The Flickr API method being used.
      */
-    internal class func queryItems(for method: Flickr.Method) -> [String: String] {
+    internal class func queryItems(for method: Flickr.Method, with pageNumber: Int) -> [String: String] {
         let queryItems: [String: String] = [
             Flickr.QueryKey.method: method.method,
+            Flickr.QueryKey.accuracy: Flickr.QueryValue.accuracy,
             Flickr.QueryKey.apiKey: Flickr.QueryValue.apiKey,
             Flickr.QueryKey.callback: Flickr.QueryValue.callback,
             Flickr.QueryKey.extras: Flickr.QueryValue.extras,
             Flickr.QueryKey.format: Flickr.QueryValue.format,
-            Flickr.QueryKey.page: Flickr.QueryValue.page,
-            Flickr.QueryKey.perPage: Flickr.QueryValue.perPage
+            Flickr.QueryKey.page: "\(pageNumber)",
+            Flickr.QueryKey.perPage: Flickr.QueryValue.perPage,
+            Flickr.QueryKey.radius: Flickr.QueryValue.radius
         ]
         return queryItems
     }
