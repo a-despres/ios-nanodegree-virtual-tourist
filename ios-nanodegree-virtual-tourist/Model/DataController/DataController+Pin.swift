@@ -18,15 +18,15 @@ extension DataController {
      - parameter map: The `MKMapView` containing the `MKPointAnnotation`.
      - parameter completion: A closure which is called with the original `MKPointAnnotation` object, the `MKMapView` and a boolean indicating success or failure.
      */
-    class func add(pin: MKPointAnnotation, from map: MKMapView, completion: @escaping AddPinHandler) {
-        let pinToAdd = Pin(context: shared.viewContext)
-        pinToAdd.latitude = Double(pin.coordinate.latitude)
-        pinToAdd.longitude = Double(pin.coordinate.longitude)
+    class func add(pin annotation: MKPointAnnotation, from map: MKMapView, completion: @escaping AddPinHandler) {
+        let pin = Pin(context: shared.viewContext)
+        pin.latitude = Double(annotation.coordinate.latitude)
+        pin.longitude = Double(annotation.coordinate.longitude)
         
         save { success in
             switch success {
-            case false: completion(pin, map, false)
-            case true: completion(pin, map, true)
+            case false: completion(pin, annotation, map, false)
+            case true: completion(pin, annotation, map, true)
             }
         }
     }

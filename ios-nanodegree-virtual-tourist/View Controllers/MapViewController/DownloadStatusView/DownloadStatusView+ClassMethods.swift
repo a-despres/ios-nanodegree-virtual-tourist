@@ -52,6 +52,7 @@ extension DownloadStatusView {
         case .noPhotos:
             activityIndicator.stopAnimating()
             setupButton(backgroundColor: errorColor, icon: enbabledIcon, state: .disabled, isEnabled: false, width: disabledWidth)
+            setupLocationText(verticalOffset: -8)
             setupStatusText(StatusString.noPhotos.stringValue, alpha: 1, verticalOffset: 8)
             dismiss(in: 1.5)
             

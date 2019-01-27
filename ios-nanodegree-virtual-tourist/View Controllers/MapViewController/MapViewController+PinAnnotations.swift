@@ -116,7 +116,7 @@ extension MapViewController {
                 completion(annotation, nil, error)
             } else {
                 // add annotation to persistent store as a Pin, otherwise remove annotation from map
-                DataController.add(pin: annotation, from: map, completion: self.handleAddPin(annotation:map:success:))
+                DataController.add(pin: annotation, from: map, completion: self.handleAddPin(pin:annotation:map:success:))
                 completion(annotation, placemarks?.first?.locality, nil)
             }
         }
@@ -228,8 +228,11 @@ extension MapViewController {
      - parameter map: The `MKMapView` containing the annotation.
      - parameter success: The boolean value indicating if the pin has been saved in Core Data.
      */
-    func handleAddPin(annotation: MKPointAnnotation, map: MKMapView, success: Bool) {
-        if !success { remove(annotation: annotation, from: map) }
+    func handleAddPin(pin: Pin, annotation: MKPointAnnotation, map: MKMapView, success: Bool) {
+        switch success {
+        case false: remove(annotation: annotation, from: map)
+        case true: newPin = pin
+        }
     }
     
     /**
@@ -249,7 +252,6 @@ extension MapViewController {
             
             if statusView.downloaded == statusView.total {
                 statusView.setStatus(.complete, animated: true)
-                newPin = pin
             }
         }
     }
@@ -274,6 +276,11 @@ extension MapViewController {
             
             // download image data
             Client.downloadMetadata(for: annotation.coordinate.toLocation(), completion: handleDownloadMetadata(metadata:error:))
+        } else {
+            statusView.setLocationName("Unknown Location")
+            statusView.setVisible(true, animated: true)
+            statusView.setStatus(.noPhotos, animated: true)
+            DataController.delete(pin: newPin, with: annotation, from: mapView, completion: handleDeletePin(annotation:map:success:))
         }
     }
 }

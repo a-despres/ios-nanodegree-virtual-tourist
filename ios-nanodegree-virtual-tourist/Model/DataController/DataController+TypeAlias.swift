@@ -22,6 +22,6 @@ extension DataController {
     typealias FetchPhotosHandler = (_ success: Bool) -> Void
     
     // MARK: - Pin
-    typealias AddPinHandler = (_ pin: MKPointAnnotation, _ map: MKMapView, _ success: Bool) -> Void
+    typealias AddPinHandler = (_ pin: Pin, _ annotation: MKPointAnnotation, _ map: MKMapView, _ success: Bool) -> Void
     typealias DeletePinHandler = (_ annotation: MKPointAnnotation, _ map: MKMapView, _ success: Bool) -> Void
 }
