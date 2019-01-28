@@ -17,12 +17,13 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if statusView.isVisible { statusView.setVisible(false, animated: false) }
+        if statusView.isVisible && newPin != nil { statusView.setVisible(false, animated: false) }
         
         switch isEditingMap {
         case false:
-            view.isSelected = false
+            mapView.deselectAnnotation(view.annotation!, animated: false)
             if let pin = DataController.fetchPin(with: view.annotation!.coordinate.toLocation()) {
+                newPin = nil
                 performSegue(withIdentifier: "showGallery", sender: pin)
             }
             

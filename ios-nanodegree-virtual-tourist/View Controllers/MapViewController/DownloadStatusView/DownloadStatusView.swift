@@ -67,7 +67,7 @@ class DownloadStatusView: UIView {
         set { colorEnabled = newValue }
     }
     
-    @IBInspectable var enbabledIcon: UIImage {
+    @IBInspectable var enabledIcon: UIImage {
         get { return iconEnabled }
         set { iconEnabled = newValue }
     }

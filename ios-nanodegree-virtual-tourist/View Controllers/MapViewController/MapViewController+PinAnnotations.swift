@@ -56,6 +56,11 @@ extension MapViewController {
      */
     func drop(annotation: MKPointAnnotation, on map: MKMapView, at point: CGPoint) {
         annotation.coordinate = map.convert(point, toCoordinateFrom: map)
+        
+        statusView.setLocationName("Retrieving Location")
+        statusView.setVisible(true, animated: true)
+        statusView.setStatus(.gettingLocation, animated: false)
+        
         geocode(annotation: annotation, on: map, completion: handleGeocodeLocation(annotation:name:error:))
     }
     
@@ -263,21 +268,20 @@ extension MapViewController {
      - parameter error: The `Error` object describing how the geocoding process failed. (optional)
      */
     func handleGeocodeLocation(annotation: MKPointAnnotation, name: String?, error: Error?) {
-        if let error = error {
-            // TODO: Handle Error
-            print("Error:", error)
+        if let _ = error {
+            statusView.setLocationName("Unknown Location")
+            statusView.setStatus(.unknownLocation, animated: true)
+            mapView.removeAnnotation(annotation)
         }
         
         else if let name = name {
             // show download status modal
             statusView.setLocationName(name)
-            statusView.setVisible(true, animated: true)
-            statusView.setStatus(.preparing, animated: true)
+            statusView.setStatus(.preparingDownload, animated: true)
             
             // download image data
             Client.downloadMetadata(for: annotation.coordinate.toLocation(), completion: handleDownloadMetadata(metadata:error:))
         } else {
-            statusView.setLocationName("Unknown Location")
             statusView.setVisible(true, animated: true)
             statusView.setStatus(.noPhotos, animated: true)
             DataController.delete(pin: newPin, with: annotation, from: mapView, completion: handleDeletePin(annotation:map:success:))

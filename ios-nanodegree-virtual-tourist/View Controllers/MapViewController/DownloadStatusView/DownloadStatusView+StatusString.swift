@@ -11,14 +11,18 @@ import Foundation
 extension DownloadStatusView {
     enum StatusString {
         case downloading(Int, Int)
+        case gettingLocation
         case noPhotos
-        case preparing
+        case preparingDownload
+        case unknownLocation
         
         var stringValue: String {
             switch self {
             case .downloading(let current, let total): return "\(current) of \(total) Photos Downloaded"
+            case .gettingLocation: return "Downloading Location Information"
             case .noPhotos: return "No Photos Available"
-            case .preparing: return "Retrieving Gallery Information"
+            case .preparingDownload: return "Retrieving Gallery Information"
+            case .unknownLocation: return "Could Not Download Location Information"
             }
         }
     }

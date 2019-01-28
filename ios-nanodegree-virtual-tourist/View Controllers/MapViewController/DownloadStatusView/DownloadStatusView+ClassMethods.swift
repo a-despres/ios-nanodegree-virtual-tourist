@@ -42,25 +42,35 @@ extension DownloadStatusView {
         case .complete:
             activityIndicator.stopAnimating()
             resetDownloaded()
-            setupButton(backgroundColor: enabledColor, icon: enbabledIcon, state: .normal, isEnabled: true, width: enabledWidth)
+            setupButton(backgroundColor: enabledColor, icon: enabledIcon, state: .normal, isEnabled: true, width: enabledWidth)
             setupLocationText(verticalOffset: 0)
             setupStatusText(alpha: 0, verticalOffset: 16)
         
         case .downloading:
             break // nothing special happens at this point
         
+        case .gettingLocation:
+            activityIndicator.startAnimating()
+            setupButton(backgroundColor: disabledColor, icon: disabledIcon, state: .disabled, isEnabled: false, width: button.frame.height)
+            setupLocationText(verticalOffset: -8)
+            setupStatusText(StatusString.gettingLocation.stringValue, alpha: 1, verticalOffset: 8)
+        
         case .noPhotos:
             activityIndicator.stopAnimating()
-            setupButton(backgroundColor: errorColor, icon: enbabledIcon, state: .disabled, isEnabled: false, width: disabledWidth)
+            setupButton(backgroundColor: errorColor, icon: enabledIcon, state: .disabled, isEnabled: false, width: disabledWidth)
             setupLocationText(verticalOffset: -8)
             setupStatusText(StatusString.noPhotos.stringValue, alpha: 1, verticalOffset: 8)
             dismiss(in: 1.5)
             
-        case .preparing:
-            activityIndicator.startAnimating()
-            setupButton(backgroundColor: disabledColor, icon: disabledIcon, state: .disabled, isEnabled: false, width: button.frame.height)
+        case .preparingDownload:
+            setupStatusText(StatusString.preparingDownload.stringValue, alpha: 1, verticalOffset: 8)
+            
+        case .unknownLocation:
+            activityIndicator.stopAnimating()
+            setupButton(backgroundColor: errorColor, icon: enabledIcon, state: .disabled, isEnabled: false, width: disabledWidth)
             setupLocationText(verticalOffset: -8)
-            setupStatusText(StatusString.preparing.stringValue, alpha: 1, verticalOffset: 8)
+            setupStatusText(StatusString.unknownLocation.stringValue, alpha: 1, verticalOffset: 8)
+            dismiss(in: 1.5)
         }
         
         if animated {

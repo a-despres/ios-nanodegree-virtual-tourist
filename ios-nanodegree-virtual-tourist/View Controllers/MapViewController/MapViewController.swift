@@ -38,7 +38,7 @@ class MapViewController: UIViewController {
      */
     @IBAction func handleLongPressGesture(_ sender: UILongPressGestureRecognizer) {
         // only handle a long press gesture if the user is not editing the map.
-        if !isEditingMap {
+        if !isEditingMap && !statusView.isVisible {
             let point = sender.location(in: mapView)
             
             switch sender.state {
@@ -64,7 +64,7 @@ class MapViewController: UIViewController {
         
         // setup status view
         statusView.delegate = self
-        statusView.view(to: .preparing, isVisible: false, isAnimated: false)
+        statusView.view(to: .gettingLocation, isVisible: false, isAnimated: false)
         
         // Move instructions view off screen
         toggleInstructionsView(animated: false)
