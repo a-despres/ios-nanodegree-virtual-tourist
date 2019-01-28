@@ -33,6 +33,10 @@
 		A1C279E321F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E221F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift */; };
 		A1C279E521F29E4A0014C546 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E421F29E4A0014C546 /* GalleryCollectionViewCell.swift */; };
 		A1C279E721F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */; };
+		A1D7923921FE8DD000A4876C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7923821FE8DD000A4876C /* UIViewController+Extension.swift */; };
+		A1D7923B21FE8EB000A4876C /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7923A21FE8EB000A4876C /* ErrorAlert.swift */; };
+		A1D7923E21FE902F00A4876C /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7923D21FE902F00A4876C /* DataError.swift */; };
+		A1D7924021FEA82400A4876C /* ClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D7923F21FEA82400A4876C /* ClientError.swift */; };
 		A1EA9BD521F7EA0F00DE4D8D /* GalleryCollectionViewCell+FavoriteIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA9BD421F7EA0F00DE4D8D /* GalleryCollectionViewCell+FavoriteIcon.swift */; };
 		A1EA9BD721F8129800DE4D8D /* GalleryCollectionViewCell+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA9BD621F8129800DE4D8D /* GalleryCollectionViewCell+Photo.swift */; };
 		A1EA9BD921F8172D00DE4D8D /* DataController+IO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EA9BD821F8172D00DE4D8D /* DataController+IO.swift */; };
@@ -77,6 +81,10 @@
 		A1C279E221F29C700014C546 /* GalleryViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		A1C279E421F29E4A0014C546 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		A1C279E621F2B4D00014C546 /* GalleryViewController+NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewController+NSFetchedResultsControllerDelegate.swift"; sourceTree = "<group>"; };
+		A1D7923821FE8DD000A4876C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		A1D7923A21FE8EB000A4876C /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		A1D7923D21FE902F00A4876C /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
+		A1D7923F21FEA82400A4876C /* ClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientError.swift; sourceTree = "<group>"; };
 		A1EA9BD421F7EA0F00DE4D8D /* GalleryCollectionViewCell+FavoriteIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryCollectionViewCell+FavoriteIcon.swift"; sourceTree = "<group>"; };
 		A1EA9BD621F8129800DE4D8D /* GalleryCollectionViewCell+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryCollectionViewCell+Photo.swift"; sourceTree = "<group>"; };
 		A1EA9BD821F8172D00DE4D8D /* DataController+IO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataController+IO.swift"; sourceTree = "<group>"; };
@@ -111,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				A12C17F121F576EF003AA821 /* CLLocation+Extension.swift */,
+				A1D7923821FE8DD000A4876C /* UIViewController+Extension.swift */,
 				A12C17EA21F54D5A003AA821 /* URLComponents+Extension.swift */,
 			);
 			path = Extensions;
@@ -137,6 +146,7 @@
 				A152543D21EBBFD800BACC40 /* Client+Flickr.swift */,
 				A152544621EC035300BACC40 /* Client+QueryItems.swift */,
 				A12C17ED21F556D3003AA821 /* Client+TypeAlias.swift */,
+				A1D7923F21FEA82400A4876C /* ClientError.swift */,
 				A152544121EBFA5000BACC40 /* Model */,
 			);
 			path = Client;
@@ -157,9 +167,18 @@
 			isa = PBXGroup;
 			children = (
 				A1EA9BDA21F8173400DE4D8D /* DataController */,
+				A1D7923C21FE8EC600A4876C /* DisplayAlert */,
 				A152544D21EC0C8300BACC40 /* VirtualTourist.xcdatamodeld */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A1D7923C21FE8EC600A4876C /* DisplayAlert */ = {
+			isa = PBXGroup;
+			children = (
+				A1D7923A21FE8EB000A4876C /* ErrorAlert.swift */,
+			);
+			path = DisplayAlert;
 			sourceTree = "<group>";
 		};
 		A1EA9BD321F7E9BA00DE4D8D /* GalleryCollectionViewCell */ = {
@@ -180,6 +199,7 @@
 				A1EA9BDD21F8193400DE4D8D /* DataController+Photo.swift */,
 				A1EA9BDF21F8199300DE4D8D /* DataController+Pin.swift */,
 				A1EA9BDB21F817C500DE4D8D /* DataController+TypeAlias.swift */,
+				A1D7923D21FE902F00A4876C /* DataError.swift */,
 			);
 			path = DataController;
 			sourceTree = "<group>";
@@ -340,6 +360,7 @@
 				A1A1E58921F6887E00DD1007 /* MapViewController+DownloadStatusViewDelegate.swift in Sources */,
 				A1F2B98B21E4749B00F5CB68 /* MapViewController+PinAnnotations.swift in Sources */,
 				A1F2B97121E45A6700F5CB68 /* GalleryViewController.swift in Sources */,
+				A1D7923921FE8DD000A4876C /* UIViewController+Extension.swift in Sources */,
 				A12C17EB21F54D5A003AA821 /* URLComponents+Extension.swift in Sources */,
 				A1EA9BD721F8129800DE4D8D /* GalleryCollectionViewCell+Photo.swift in Sources */,
 				A1C279E521F29E4A0014C546 /* GalleryCollectionViewCell.swift in Sources */,
@@ -347,6 +368,8 @@
 				A152543E21EBBFD800BACC40 /* Client+Flickr.swift in Sources */,
 				A152544321EBFACA00BACC40 /* FlickrPhotos.swift in Sources */,
 				A1A1E58D21F6969900DD1007 /* DownloadStatusView+StatusString.swift in Sources */,
+				A1D7923E21FE902F00A4876C /* DataError.swift in Sources */,
+				A1D7923B21FE8EB000A4876C /* ErrorAlert.swift in Sources */,
 				A149073521EBB28800AB297C /* Client.swift in Sources */,
 				A12C17EE21F556D3003AA821 /* Client+TypeAlias.swift in Sources */,
 				A12C17F021F574FE003AA821 /* Location.swift in Sources */,
@@ -362,6 +385,7 @@
 				A12C17F421F6232C003AA821 /* DownloadStatusView.swift in Sources */,
 				A1486D5E21E5B5DE0046BE8E /* MapViewController+Editing.swift in Sources */,
 				A152544021EBFA4600BACC40 /* FlickrPhoto.swift in Sources */,
+				A1D7924021FEA82400A4876C /* ClientError.swift in Sources */,
 				A1EA9BDC21F817C500DE4D8D /* DataController+TypeAlias.swift in Sources */,
 				A149073921EBB3CD00AB297C /* Client+Auth.swift in Sources */,
 				A157E08821F6D0EE008286A3 /* MapViewController+TypeAlias.swift in Sources */,

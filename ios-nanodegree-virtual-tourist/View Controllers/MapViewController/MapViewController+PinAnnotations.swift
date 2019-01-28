@@ -131,6 +131,13 @@ extension MapViewController {
 // MARK: - Helper and Completion Handler Functions
 extension MapViewController {
     
+    /// Display a UIAlertView for a URL error.
+    func displayURLError() {
+        let error = ClientError(forType: .url)
+        displayAlertForError(error)
+        statusView.setVisible(false, animated: true)
+    }
+    
     /**
      Download the photos for the given Pin.
      - parameter pin: The `Pin` object the photos will be associated with after downloading.
@@ -149,15 +156,14 @@ extension MapViewController {
         // Iterate through the photo URLs and download the data
         for case let photo as Photo in pin.photos! {
             guard let urlString = photo.url else {
-                print("error!")
+                displayURLError()
                 return
             }
             
             if let url = URL(string: urlString) {
                 Client.downloadPhoto(from: url, for: photo, in: pin, completion: handleDownloadPhoto(associated:response:error:))
             } else {
-                // TODO: Handle Error
-                print("Error: Invalid URL")
+                displayURLError()
             }
         }
     }
@@ -171,8 +177,9 @@ extension MapViewController {
     func handleDeletePin(annotation: MKPointAnnotation, map: MKMapView, success: Bool) {
         switch success {
         case false:
-            // TODO: Handle Error
-            print("Error: Pin not deleted.")
+            let error = DataError(forType: .deletePin)
+            displayAlertForError(error)
+            mapView.deselectAnnotation(annotation, animated: false)
             
         case true:
             map.removeAnnotation(annotation)
@@ -185,9 +192,11 @@ extension MapViewController {
      - parameter error: The `Error` object describing how the download failed. (optional)
      */
     func handleDownloadMetadata(metadata: Client.Metadata?, error: Error?) {
-        if let error = error {
-            // TODO: Handle Error
-            print("Error:", error)
+        if let _ = error {
+//            let error = ClientError(forType: .downloadMetadata)
+//            displayAlertForError(error)
+            statusView.setStatus(.noMetadata, animated: true)
+            DataController.delete(pin: newPin, with: newAnnotation, from: mapView, completion: handleDeletePin(annotation:map:success:))
         }
         
         else if let metadata = metadata {
@@ -247,8 +256,9 @@ extension MapViewController {
     func handleAddPhoto(photo: Photo, pin: Pin, success: Bool) {
         switch success {
         case false:
-            // TODO: Handle Error
-            print("Error: Photo data not saved.")
+            let error = DataError(forType: .savePhoto)
+            displayAlertForError(error)
+            statusView.setVisible(false, animated: true)
             
         case true:
             if photo.data!.count > 0 {

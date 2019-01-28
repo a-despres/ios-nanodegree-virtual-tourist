@@ -13,6 +13,7 @@ extension DownloadStatusView {
         case complete
         case downloading
         case gettingLocation
+        case noMetadata
         case noPhotos
         case preparingDownload
         case unknownLocation

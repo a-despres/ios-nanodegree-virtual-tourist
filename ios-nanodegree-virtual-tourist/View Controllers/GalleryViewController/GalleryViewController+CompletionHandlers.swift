@@ -17,8 +17,8 @@ extension GalleryViewController {
      */
     func handleAddPhoto(photo: Photo, pin: Pin, success: Bool) {
         if !success {
-            // TODO: Handle Error
-            print("Error: Photo data not saved.")
+            let error = DataError(forType: .savePhoto)
+            displayAlertForError(error)
         }
     }
     
@@ -29,8 +29,8 @@ extension GalleryViewController {
     func handleDeletePhoto(success: Bool) {
         switch success {
         case false:
-            // TODO: Handle Error
-            print("Error: Could not delete photo")
+            let error = DataError(forType: .deletePhoto)
+            displayAlertForError(error)
             
         case true:
             self.photosToDelete = [Photo]()
@@ -45,8 +45,8 @@ extension GalleryViewController {
     func handleDeletePhotos(success: Bool) {
         switch success {
         case false:
-            // TODO: Handle Error
-            print("Error: Cound not delete photo")
+            let error = DataError(forType: .deletePhotos)
+            displayAlertForError(error)
             
         case true:            
             let location = Location(latitude: pin.latitude, longitude: pin.longitude)
@@ -66,9 +66,9 @@ extension GalleryViewController {
      - parameter error: An `Error` object describing how the parsing of metadata failed. (optional)
      */
     func handleDownloadMetadata(metadata: Client.Metadata?, error: Error?) {
-        if let error = error {
-            // TODO: Handle Error
-            print("Error:", error)
+        if let _ = error {
+            let error = ClientError(forType: .downloadMetadata)
+            displayAlertForError(error)
         }
         
         else if let metadata = metadata {
@@ -109,8 +109,8 @@ extension GalleryViewController {
      */
     func handleFetchPhotos(success: Bool) {
         if !success {
-            // TODO: Handle Error
-            print("Error: Failed to load photos.")
+            let error = DataError(forType: .loadPhotos)
+            displayAlertForError(error)
         }
     }
 }

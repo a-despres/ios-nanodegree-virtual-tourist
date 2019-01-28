@@ -55,6 +55,13 @@ extension DownloadStatusView {
             setupLocationText(verticalOffset: -8)
             setupStatusText(StatusString.gettingLocation.stringValue, alpha: 1, verticalOffset: 8)
         
+        case .noMetadata:
+            activityIndicator.stopAnimating()
+            setupButton(backgroundColor: errorColor, icon: enabledIcon, state: .disabled, isEnabled: false, width: disabledWidth)
+            setupLocationText(verticalOffset: -8)
+            setupStatusText(StatusString.noMetadata.stringValue, alpha: 1, verticalOffset: 8)
+            dismiss(in: 1.5)
+            
         case .noPhotos:
             activityIndicator.stopAnimating()
             setupButton(backgroundColor: errorColor, icon: enabledIcon, state: .disabled, isEnabled: false, width: disabledWidth)
