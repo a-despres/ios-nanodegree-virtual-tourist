@@ -87,7 +87,7 @@ extension MapViewController {
      - parameter annotation: The `MKPointAnnotation` to be removed.
      - parameter map: The `MKMapView` containing the `MKPointAnnotation`.
      */
-    func remove(annotation: MKPointAnnotation, from map: MKMapView) {
+    func remove(annotation: MKPointAnnotation, from map: MKMapView, ignoreEditState: Bool = false) {
         // create location object
         let location = Location(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
         
@@ -97,7 +97,9 @@ extension MapViewController {
         }
 
         if map.annotations.count == 0 {
-            toggleEditingState()
+            if !ignoreEditState {
+                toggleEditingState()
+            }
             editButton.isEnabled = false
         }
     }
@@ -146,7 +148,7 @@ extension MapViewController {
         // Count Photos and Set No Photo Status if there are zero photos
         if pin.photos?.count == 0 {
             statusView.setStatus(.noPhotos, animated: false)
-            DataController.delete(pin: pin, with: newAnnotation, from: mapView, completion: handleDeletePin(annotation:map:success:))
+            remove(annotation: newAnnotation, from: mapView, ignoreEditState: true)
             return
         }
         
@@ -193,10 +195,8 @@ extension MapViewController {
      */
     func handleDownloadMetadata(metadata: Client.Metadata?, error: Error?) {
         if let _ = error {
-//            let error = ClientError(forType: .downloadMetadata)
-//            displayAlertForError(error)
             statusView.setStatus(.noMetadata, animated: true)
-            DataController.delete(pin: newPin, with: newAnnotation, from: mapView, completion: handleDeletePin(annotation:map:success:))
+            remove(annotation: newAnnotation, from: mapView, ignoreEditState: true)
         }
         
         else if let metadata = metadata {
@@ -295,7 +295,7 @@ extension MapViewController {
             statusView.setVisible(true, animated: true)
             statusView.setLocationName("Unknown Location")
             statusView.setStatus(.noPhotos, animated: true)
-            DataController.delete(pin: newPin, with: annotation, from: mapView, completion: handleDeletePin(annotation:map:success:))
+            remove(annotation: annotation, from: mapView, ignoreEditState: true)
         }
     }
 }
