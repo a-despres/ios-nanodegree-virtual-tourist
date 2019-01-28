@@ -293,6 +293,7 @@ extension MapViewController {
             Client.downloadMetadata(for: annotation.coordinate.toLocation(), completion: handleDownloadMetadata(metadata:error:))
         } else {
             statusView.setVisible(true, animated: true)
+            statusView.setLocationName("Unknown Location")
             statusView.setStatus(.noPhotos, animated: true)
             DataController.delete(pin: newPin, with: annotation, from: mapView, completion: handleDeletePin(annotation:map:success:))
         }
