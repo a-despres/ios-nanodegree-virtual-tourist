@@ -19,6 +19,7 @@ class DownloadStatusView: UIView {
     
     // MARK: - Public Properties
     public private(set) var downloaded: Int = 0
+    public private(set) var isDownloading: Bool = false
     public private(set) var isVisible: Bool = true
     public private(set) var total: Int = 36
     
@@ -100,7 +101,9 @@ class DownloadStatusView: UIView {
     }
     
     @IBAction func viewSwiped(_ sender: UISwipeGestureRecognizer) {
-        setVisible(false, animated: true)
+        if !isDownloading {
+            setVisible(false, animated: true)
+        }
     }
     
     // MARK: - Initialization
@@ -132,6 +135,14 @@ class DownloadStatusView: UIView {
     func resetDownloaded() {
         downloaded = 0
         updateCount()
+    }
+    
+    /**
+     Set the downloading status for the view.
+     - parameter downloading: The boolean value indicating if data currently being downloaded.
+     */
+    func setDownloading(_ downloading: Bool) {
+        self.isDownloading = downloading
     }
     
     /**

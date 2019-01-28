@@ -41,6 +41,7 @@ extension DownloadStatusView {
         switch status {
         case .complete:
             activityIndicator.stopAnimating()
+            setDownloading(false)
             resetDownloaded()
             setupButton(backgroundColor: enabledColor, icon: enabledIcon, state: .normal, isEnabled: true, width: enabledWidth)
             setupLocationText(verticalOffset: 0)
@@ -51,12 +52,14 @@ extension DownloadStatusView {
         
         case .gettingLocation:
             activityIndicator.startAnimating()
+            setDownloading(true)
             setupButton(backgroundColor: disabledColor, icon: disabledIcon, state: .disabled, isEnabled: false, width: button.frame.height)
             setupLocationText(verticalOffset: -8)
             setupStatusText(StatusString.gettingLocation.stringValue, alpha: 1, verticalOffset: 8)
         
         case .noMetadata:
             activityIndicator.stopAnimating()
+            setDownloading(false)
             setupButton(backgroundColor: errorColor, icon: enabledIcon, state: .disabled, isEnabled: false, width: disabledWidth)
             setupLocationText(verticalOffset: -8)
             setupStatusText(StatusString.noMetadata.stringValue, alpha: 1, verticalOffset: 8)
@@ -64,6 +67,7 @@ extension DownloadStatusView {
             
         case .noPhotos:
             activityIndicator.stopAnimating()
+            setDownloading(false)
             setupButton(backgroundColor: errorColor, icon: enabledIcon, state: .disabled, isEnabled: false, width: disabledWidth)
             setupLocationText(verticalOffset: -8)
             setupStatusText(StatusString.noPhotos.stringValue, alpha: 1, verticalOffset: 8)
@@ -74,6 +78,7 @@ extension DownloadStatusView {
             
         case .unknownLocation:
             activityIndicator.stopAnimating()
+            setDownloading(false)
             setupButton(backgroundColor: errorColor, icon: enabledIcon, state: .disabled, isEnabled: false, width: disabledWidth)
             setupLocationText(verticalOffset: -8)
             setupStatusText(StatusString.unknownLocation.stringValue, alpha: 1, verticalOffset: 8)
