@@ -10,4 +10,5 @@ import UIKit
 
 protocol DownloadStatusViewDelegate {
     func downloadStatusView(_ downloadStatusView: DownloadStatusView, buttonTapped button: UIButton)
+    func downloadStatusView(_ downloadStatusView: DownloadStatusView, isDownloading: Bool)
 }

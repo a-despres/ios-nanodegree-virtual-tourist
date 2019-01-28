@@ -143,6 +143,7 @@ class DownloadStatusView: UIView {
      */
     func setDownloading(_ downloading: Bool) {
         self.isDownloading = downloading
+        delegate?.downloadStatusView(self, isDownloading: downloading)
     }
     
     /**

@@ -148,7 +148,7 @@ extension MapViewController {
         // Count Photos and Set No Photo Status if there are zero photos
         if pin.photos?.count == 0 {
             statusView.setStatus(.noPhotos, animated: false)
-            remove(annotation: newAnnotation, from: mapView, ignoreEditState: true)
+            DataController.delete(pin: pin, with: newAnnotation, from: mapView, completion: handleDeletePin(annotation:map:success:))
             return
         }
         

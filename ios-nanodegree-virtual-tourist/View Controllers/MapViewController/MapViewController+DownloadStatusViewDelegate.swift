@@ -15,4 +15,11 @@ extension MapViewController: DownloadStatusViewDelegate {
         statusView.setVisible(false, animated: false)
         performSegue(withIdentifier: "showGallery", sender: newPin)
     }
+    
+    func downloadStatusView(_ downloadStatusView: DownloadStatusView, isDownloading: Bool) {
+        switch isDownloading {
+        case false: if pins.count > 0 { editButton.isEnabled = true }
+        case true: editButton.isEnabled = false
+        }
+    }
 }
