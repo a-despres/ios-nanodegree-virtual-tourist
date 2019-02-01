@@ -292,7 +292,6 @@ extension MapViewController {
             // download image data
             Client.downloadMetadata(for: annotation.coordinate.toLocation(), completion: handleDownloadMetadata(metadata:error:))
         } else {
-            statusView.setVisible(true, animated: true)
             statusView.setLocationName("Unknown Location")
             statusView.setStatus(.noPhotos, animated: true)
             remove(annotation: annotation, from: mapView, ignoreEditState: true)
