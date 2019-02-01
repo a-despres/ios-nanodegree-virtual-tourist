@@ -22,6 +22,7 @@ class GalleryViewController: UIViewController {
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var editPane: UIView!
     @IBOutlet weak var editPaneVerticalConstraint: NSLayoutConstraint!
+    @IBOutlet weak var emptyView: EmptyGalleryView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var updateButton: UIButton!
     
@@ -44,6 +45,10 @@ class GalleryViewController: UIViewController {
     // MARK: - View Controller
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // set delegates
+        mapView.delegate = self
+        emptyView.delegate = self
         
         // move edit pane off screen
         toggleEditPane(animated: false)

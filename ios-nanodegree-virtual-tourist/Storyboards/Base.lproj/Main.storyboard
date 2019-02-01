@@ -213,6 +213,10 @@
                                     <constraint firstItem="i1d-oe-czS" firstAttribute="leading" secondItem="2hj-id-xiY" secondAttribute="leading" constant="16" id="que-EQ-bL2"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AGg-UF-XMV" customClass="EmptyGalleryView" customModule="ios_nanodegree_virtual_tourist" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="231" width="375" height="340"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -226,7 +230,11 @@
                             <constraint firstItem="532-Wg-IFr" firstAttribute="leading" secondItem="Dwc-PR-Bk7" secondAttribute="leading" constant="8" id="OKC-eZ-4Se"/>
                             <constraint firstItem="aMo-CL-ymw" firstAttribute="top" secondItem="Dwc-PR-Bk7" secondAttribute="top" id="RNc-9O-eGk"/>
                             <constraint firstItem="Dwc-PR-Bk7" firstAttribute="trailing" secondItem="2hj-id-xiY" secondAttribute="trailing" id="U30-fJ-aHb"/>
+                            <constraint firstItem="AGg-UF-XMV" firstAttribute="leading" secondItem="Dwc-PR-Bk7" secondAttribute="leading" id="cX7-fp-HaH"/>
                             <constraint firstItem="2hj-id-xiY" firstAttribute="leading" secondItem="Dwc-PR-Bk7" secondAttribute="leading" id="duN-lw-yTe"/>
+                            <constraint firstItem="Dwc-PR-Bk7" firstAttribute="trailing" secondItem="AGg-UF-XMV" secondAttribute="trailing" id="kaO-Rk-DSz"/>
+                            <constraint firstItem="AGg-UF-XMV" firstAttribute="top" secondItem="aMo-CL-ymw" secondAttribute="bottom" id="oWo-4H-WQR"/>
+                            <constraint firstItem="2hj-id-xiY" firstAttribute="top" secondItem="AGg-UF-XMV" secondAttribute="bottom" id="vU6-lv-HxS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dwc-PR-Bk7"/>
                     </view>
@@ -242,6 +250,7 @@
                         <outlet property="editButton" destination="thN-9f-T2Y" id="MaA-BY-bg3"/>
                         <outlet property="editPane" destination="2hj-id-xiY" id="kRc-He-sTW"/>
                         <outlet property="editPaneVerticalConstraint" destination="ID9-pz-3zS" id="A3D-xw-vlx"/>
+                        <outlet property="emptyView" destination="AGg-UF-XMV" id="1AV-3u-3dK"/>
                         <outlet property="mapView" destination="aMo-CL-ymw" id="ULK-vt-07j"/>
                         <outlet property="updateButton" destination="U5l-5Z-g4U" id="Dc4-rr-Rhg"/>
                     </connections>

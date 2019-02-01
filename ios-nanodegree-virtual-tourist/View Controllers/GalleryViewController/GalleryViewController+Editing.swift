@@ -52,4 +52,12 @@ extension GalleryViewController {
         case true: editButton.title = "Done"
         }
     }
+    
+    /// Toggles the visibility of the button found in the `EmptyGalleryView`.
+    func toggleEmptyViewButton() {
+        switch isEditingGallery {
+        case false: emptyView.button.isHidden = false
+        case true: emptyView.button.isHidden = true
+        }
+    }
 }

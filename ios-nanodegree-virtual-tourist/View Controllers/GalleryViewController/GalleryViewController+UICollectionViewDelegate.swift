@@ -12,7 +12,17 @@ import UIKit
 extension GalleryViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DataController.shared.fetchedResultsController.fetchedObjects?.count ?? 0
+        let count = DataController.shared.fetchedResultsController.fetchedObjects?.count ?? 0
+        if count == 0 {
+            editButton.isEnabled = false
+            emptyView.isHidden = false
+            toggleEmptyViewButton()
+        }
+        else {
+            editButton.isEnabled = true
+            emptyView.isHidden = true
+        }
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
