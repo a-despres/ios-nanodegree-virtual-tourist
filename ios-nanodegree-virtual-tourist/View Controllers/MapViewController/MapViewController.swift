@@ -47,11 +47,15 @@ class MapViewController: UIViewController {
                 add(annotation: activePin, to: mapView, at: point)
                 
             case .changed:
-                move(annotation: activePin, on: mapView, to: point)
+                if let activePin = activePin {
+                    move(annotation: activePin, on: mapView, to: point)
+                }
                 
             case .ended:
-                drop(annotation: activePin, on: mapView, at: point)
-                activePin = nil
+                if let activePin = activePin {
+                    drop(annotation: activePin, on: mapView, at: point)
+                    self.activePin = nil
+                }
                 
             default: break
             }
